@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: de472061361ce144cbda576b1723ecf4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - AnchorPrefab: {fileID: -7307756874029176930, guid: d2ad1e1266d8af64ca87541a40be7e9f, type: 3}
+  - CablePrefab: {fileID: -8717160041275297970, guid: c5518c2f8bda4d746a830a3f3e01330c, type: 3}
+  - GatesGroup: {instanceID: 0}
+  - CablesGroup: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
