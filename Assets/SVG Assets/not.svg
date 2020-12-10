@@ -30,8 +30,8 @@
 		<path d="M 60 50 L 250 150 L 60 250 Z" />
 		<circle cx="290" cy="150" r="35"/>
 	</g>
-	<g style="stroke:none;fill:green">
+	<!--<g style="stroke:none;fill:green">
 		<circle cx="50" cy="150" r="20"/>
 		<circle cx="350" cy="150" r="20"/>
-	</g>
+	</g>-->
 </svg>

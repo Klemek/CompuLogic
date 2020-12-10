@@ -33,9 +33,9 @@
 		<path d="M 10 50 C 110 100, 110 400, 10 450 C 110 400, 110 100, 10 50 Z" />
 		<circle cx="590" cy="250" r="35"/>
 	</g>
-	<g style="stroke:none;fill:green">
+	<!--<g style="stroke:none;fill:green">
 		<circle cx="50" cy="150" r="20"/>
 		<circle cx="50" cy="350" r="20"/>
 		<circle cx="650" cy="250" r="20"/>
-	</g>
+	</g>-->
 </svg>

@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Background Image
   - 
   - 
   - 
@@ -41,12 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: gates
+  - name: moving
     uniqueID: 2301276529
-    locked: 0
-  - name: wires
-    uniqueID: 791405367
-    locked: 0
-  - name: anchors
-    uniqueID: 1165454523
     locked: 0

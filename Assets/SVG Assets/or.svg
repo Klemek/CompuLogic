@@ -29,9 +29,9 @@
 	<g style="stroke:black;stroke-width:20;fill:white">
 		<path d="M 10 50 L 150 50 C 375 50, 430 250, 430 250 C 430 250, 375 450, 150 450 L 20 450 L 150 450 L 10 450 C 110 400, 110 100, 10 50 L 150 50 L 10 50 Z" />
 	</g>
-	<g style="stroke:none;fill:green">
+	<!--<g style="stroke:none;fill:green">
 		<circle cx="50" cy="150" r="20"/>
 		<circle cx="50" cy="350" r="20"/>
 		<circle cx="450" cy="250" r="20"/>
-	</g>
+	</g>-->
 </svg>
