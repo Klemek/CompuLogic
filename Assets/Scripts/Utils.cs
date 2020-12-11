@@ -51,5 +51,10 @@ namespace UntitledLogicGame
         {
             return array.Select((v, i) => (v ? 1 : 0) << (array.Length - i - 1)).Sum();
         }
+
+        public static Vector3 Round(this Vector3 v)
+        {
+            return new Vector3(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z));
+        }
     }
 }

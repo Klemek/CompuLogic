@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace UntitledLogicGame
@@ -20,6 +21,7 @@ namespace UntitledLogicGame
 
         private Cable _currentCable;
         private Gate _currentGate;
+        private Vector3 _currentGateInitialPos;
         private Vector3 _currentGateDelta;
 
         #endregion
@@ -31,7 +33,7 @@ namespace UntitledLogicGame
             
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f;
@@ -54,7 +56,8 @@ namespace UntitledLogicGame
                     {
                         _currentGate = GameManager.Instance.CurrentGate;
                         _currentGateDelta = MousePos - _currentGate.transform.position;
-                        foreach(var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
+                        _currentGateInitialPos = _currentGate.transform.position;
+                        foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
                         {
                             renderer.sortingLayerName = "moving";
                         }
@@ -79,6 +82,13 @@ namespace UntitledLogicGame
                 {
                     renderer.sortingLayerName = "default";
                 }
+                _currentGate.transform.position = _currentGate.transform.position.Round();
+                var currentBox = _currentGate.GetComponentInChildren<BoxCollider2D>();
+                if (FindObjectsOfType<Gate>()
+                    .Where(g => !g.Equals(_currentGate))
+                    .Select(g => g.GetComponentInChildren<BoxCollider2D>())
+                    .Any(b => currentBox.IsTouching(b))) // Collision with another gate
+                    _currentGate.transform.position = _currentGateInitialPos; // Reset pos
                 _currentGate = null;
             }
         }
