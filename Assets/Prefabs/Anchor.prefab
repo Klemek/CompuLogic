@@ -99,6 +99,7 @@ MonoBehaviour:
   Name: 
   IsInput: 0
   ScaleIncrease: 1.5
+  Orientation: {x: 0, y: 0}
 --- !u!58 &8643366489253547345
 CircleCollider2D:
   m_ObjectHideFlags: 0

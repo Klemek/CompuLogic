@@ -87,12 +87,61 @@ namespace UntitledLogicGame
                 _line.endColor = Activated ? GameManager.Instance.ActivatedColor : GameManager.Instance.DeadColor;
                 _lastActivated = Activated;
             }
+            
+            if(StartAnchor != null)
+            {
+                if (EndAnchor == null)
+                {
+                    _line.positionCount = 2;
+                    _line.SetPosition(0, StartAnchor.transform.position);
+                    _line.SetPosition(1, MouseManager.MousePos);
+                }
+                else
+                {
+                    var startPos = StartAnchor.transform.position;
+                    var startOr = StartAnchor.Orientation;
+                    var endPos = EndAnchor.transform.position;
+                    var endOr = StartAnchor.Orientation;
 
-            var startPos = StartAnchor == null ? MouseManager.MousePos : StartAnchor.transform.position;
-            var endPos = EndAnchor == null ? MouseManager.MousePos : EndAnchor.transform.position;
-            _line.positionCount = 2;
-            _line.SetPosition(0, startPos);
-            _line.SetPosition(1, endPos);
+                    _line.positionCount = 4;
+                    _line.SetPosition(0, startPos);
+
+                    if (Mathf.Abs(startOr.x) > 0)
+                    {
+                        if (Mathf.Abs(endOr.x) > 0)
+                        {
+                            var middle = (startPos.x + endPos.x) / 2;
+                            _line.SetPosition(1, new Vector3(middle, startPos.y, 0));
+                            _line.SetPosition(2, new Vector3(middle, endPos.y, 0));
+                        }
+                        else
+                        {
+                            _line.SetPosition(1, new Vector3(startPos.x, endPos.y, 0));
+                            _line.SetPosition(2, new Vector3(startPos.x, endPos.y, 0));
+                        }
+                    }
+                    else
+                    {
+                        if (Mathf.Abs(endOr.x) > 0)
+                        {
+                            var middle = (startPos.y + endPos.y) / 2;
+                            _line.SetPosition(1, new Vector3(startPos.x, middle, 0));
+                            _line.SetPosition(2, new Vector3(endPos.x, middle, 0));
+                        }
+                        else
+                        {
+                            _line.SetPosition(1, new Vector3(endPos.x, startPos.y, 0));
+                            _line.SetPosition(2, new Vector3(endPos.x, startPos.y, 0));
+                        }
+                    }
+
+                    _line.SetPosition(3, endPos);
+                }
+            }
+            else
+            {
+                _line.positionCount = 0;
+            }
         }
 
         private void OnDestroy()

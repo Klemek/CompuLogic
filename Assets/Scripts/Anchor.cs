@@ -11,7 +11,8 @@ namespace UntitledLogicGame
 
         public string Name;
         public bool IsInput;
-        public float ScaleIncrease;      
+        public float ScaleIncrease;
+        public Vector2 Orientation;
 
         #endregion
 
@@ -56,6 +57,7 @@ namespace UntitledLogicGame
             _scale = transform.localScale;
             _sprite = GetComponent<SpriteRenderer>();
             Cables = new List<Cable>();
+            Orientation = Orientation.normalized;
         }
 
         // Update is called once per frame
