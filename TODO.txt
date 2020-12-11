@@ -1,8 +1,7 @@
 TODO
 -(0) mux/demux
--(0) gates into game objects
--(1) snap to grid
 -(1) button gates
+-(1) led gates
 -(2) named anchors
 -(3) overlay to drag &drop new gates
 -(3) same but to destroy gates
