@@ -1,0 +1,12 @@
+TODO
+-(0) mux/demux
+-(0) gates into game objects
+-(1) snap to grid
+-(1) button gates
+-(2) named anchors
+-(3) overlay to drag &drop new gates
+-(3) same but to destroy gates
+-(3) generic rect gates
+-(3) state gates
+-(5) cable management
+-(5) buses

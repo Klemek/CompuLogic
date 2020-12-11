@@ -66,18 +66,19 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _MiddlePoint: 0.6
+    - _MiddlePoint: 0.5
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Size: 100
+    - _SmoothWidth: 0.0001
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Step: 5
     - _UVSec: 0
     - _WaveScale: 100
-    - _Width: 0.001
+    - _Width: 0.0004
     - _ZWrite: 1
     m_Colors:
     - _Background: {r: 0.3, g: 0.3, b: 0.3, a: 1}

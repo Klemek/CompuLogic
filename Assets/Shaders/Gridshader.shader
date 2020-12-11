@@ -2,7 +2,8 @@
 {
 	Properties
 	{
-		_Width("Width", Range(0.0001,0.05)) = 0.001
+		_Width("Width", Range(0.00001,0.05)) = 0.001
+		_SmoothWidth("Smooth Width", Range(0.00001,0.05)) = 0.0002
 		_Size("Object Size", Range(0.01,1000)) = 100
 		_MiddlePoint("Middle Point", Range(0, 1)) = 0.6
 		_Background("Background Color", Color) = (.2, .2, .2, 1)
@@ -40,6 +41,14 @@
 
 			sampler2D _MainTex;
 
+			float _Width;
+			float _SmoothWidth;
+			float _Size;
+			float4 _Background;
+			float _MiddlePoint;
+			float4 _Foreground;
+			int _Step;
+
 			v2f vert(appdata v)
 			{
 				v2f o;
@@ -49,37 +58,36 @@
 				return o;
 			}
 
-			float _Width;
-			float _Size;
-			float4 _Background;
-			float _MiddlePoint;
-			float4 _Foreground;
-			int _Step;
+			float grid(float2 uv, float w, float s) 
+			{
+				return clamp(1 
+					- smoothstep(w - _SmoothWidth, w + _SmoothWidth, fmod(uv.x + w * .5, s)) + 1 
+					- smoothstep(w - _SmoothWidth, w + _SmoothWidth, fmod(uv.y + w * .5, s)), 0, 1);
+			}
 
 			float4 frag(v2f i) : SV_Target
 			{
 				float d = length(ObjSpaceViewDir(i.scrPos));
 				float w = d * _Width;
-				i.uv *= _Size;
 
-				float k = log(d)  / log(_Step);
+				float k = log(d) / log(_Step);
 				float k0 = floor(k);
 
 				float x = d / pow(_Step, k0);
 
 				float s1 = pow(_Step, k0) * .1 / _Step;
-				float c1 = clamp(_MiddlePoint * (_Step - x) / (_Step - 1), 0, 1);
+				float c1 = smoothstep(0, 1, _MiddlePoint * (_Step - x) / (_Step - 1));
 
 				float s2 = s1 * _Step;
-				float c2 = clamp((1 - _MiddlePoint) * (_Step - x) / (_Step - 1) + _MiddlePoint, 0, 1);
+				float c2 = smoothstep(0, 1, (1 - _MiddlePoint) * (_Step - x) / (_Step - 1) + _MiddlePoint);
 
 				float s3 = s2 * _Step;
-
-				float2 uv = i.uv;
 				
-				float grid1 = clamp(1 - step(w, fmod(uv.x + w * .5, s1)) + 1 - step(w, fmod(uv.y + w * .5, s1)), 0, 1);
-				float grid2 = clamp(1 - step(w, fmod(uv.x + w * .5, s2)) + 1 - step(w, fmod(uv.y + w * .5, s2)), 0, 1);
-				float grid3 = clamp(1 - step(w, fmod(uv.x + w * .5, s3)) + 1 - step(w, fmod(uv.y + w * .5, s3)), 0, 1);
+				i.uv *= _Size;
+
+				float grid1 = grid(i.uv, w, s1);
+				float grid2 = grid(i.uv, w, s2);
+				float grid3 = grid(i.uv, w, s3);
 				grid2 = clamp(grid2 - grid3, 0, 1);
 				grid1 = clamp(grid1 - grid2, 0, 1);
 
