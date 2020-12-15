@@ -27,6 +27,9 @@ namespace UntitledLogicGame
         public Color DeadColor;
         public Color ActivatedColor;
 
+        [Header("Gates")]
+        public List<Gate> GatePrefabs;
+
         #endregion
 
         #region Public Properties
@@ -34,6 +37,8 @@ namespace UntitledLogicGame
         public Anchor CurrentAnchor { get; set; }
 
         public Gate CurrentGate { get; set; }
+
+        public MouseManager MouseManager { get; private set; }
 
         #endregion
 
@@ -49,6 +54,7 @@ namespace UntitledLogicGame
             if (Instance != null)
                 throw new InvalidOperationException("More than one GameManager in scene");
             Instance = this;
+            MouseManager = GetComponent<MouseManager>();
         }
 
         // Update is called once per frame
@@ -60,6 +66,13 @@ namespace UntitledLogicGame
         #endregion
 
         #region Public Methods
+
+        public void CreateGate(Gate gatePrefab, Vector3 position)
+        {
+            var gate = Instantiate(gatePrefab, GatesGroup);
+            gate.transform.position = MouseManager.MousePos - gate.Box.transform.position;
+            MouseManager.DragGate(gate, true);
+        }
 
         #endregion
 

@@ -7,6 +7,12 @@ namespace UntitledLogicGame
 {
     public class MouseManager : MonoBehaviour
     {
+        #region Static Properties
+
+        public static MouseManager Instance => GameManager.Instance.MouseManager;
+
+        #endregion
+
         #region Unity Properties
 
         #endregion
@@ -14,6 +20,10 @@ namespace UntitledLogicGame
         #region Public Properties
 
         public static Vector3 MousePos { get; set; }
+
+        public bool Interacting => _currentCable != null || _currentGate != null;
+
+        public static bool Clicking => Input.GetButton("Fire1");
 
         #endregion
 
@@ -39,7 +49,7 @@ namespace UntitledLogicGame
             mousePos.z = 0f;
             MousePos = mousePos;
 
-            if (Input.GetMouseButton(0))
+            if (Clicking)
             {
                 if(_currentCable == null)
                 {
@@ -54,13 +64,7 @@ namespace UntitledLogicGame
                     }
                     else if (GameManager.Instance.CurrentGate != null)
                     {
-                        _currentGate = GameManager.Instance.CurrentGate;
-                        _currentGateDelta = MousePos - _currentGate.transform.position;
-                        _currentGateInitialPos = _currentGate.transform.position;
-                        foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
-                        {
-                            renderer.sortingLayerName = "moving";
-                        }
+                        DragGate(GameManager.Instance.CurrentGate, false);
                     }
                 }
             }
@@ -83,12 +87,22 @@ namespace UntitledLogicGame
                     renderer.sortingLayerName = "default";
                 }
                 _currentGate.transform.position = _currentGate.transform.position.Round();
-                var currentBox = _currentGate.GetComponentInChildren<BoxCollider2D>();
+                var currentBox = _currentGate.Box;
                 if (FindObjectsOfType<Gate>()
                     .Where(g => !g.Equals(_currentGate))
-                    .Select(g => g.GetComponentInChildren<BoxCollider2D>())
-                    .Any(b => currentBox.IsTouching(b))) // Collision with another gate
-                    _currentGate.transform.position = _currentGateInitialPos; // Reset pos
+                    .Select(g => g.Box)
+                    .Any(b => currentBox.IsTouching(b)))
+                {
+                    // Collision with another gate
+                    if(_currentGateInitialPos == null)
+                    {
+                        Destroy(_currentGate.gameObject);
+                    }
+                    else
+                    {
+                        _currentGate.transform.position = _currentGateInitialPos; // Reset pos
+                    }
+                }
                 _currentGate = null;
             }
         }
@@ -96,6 +110,18 @@ namespace UntitledLogicGame
         #endregion
 
         #region Public Methods
+
+        public void DragGate(Gate gate, bool created)
+        {
+            _currentGate = gate;
+            _currentGateDelta = MousePos - _currentGate.transform.position;
+            if(!created)
+                _currentGateInitialPos = _currentGate.transform.position;
+            foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.sortingLayerName = "moving";
+            }
+        }
 
         #endregion
 

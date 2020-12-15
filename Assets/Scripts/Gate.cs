@@ -17,9 +17,17 @@ namespace UntitledLogicGame
 
         #region Public Properties
 
-        public List<Anchor> Anchors { get; set; }
+        public List<Anchor> Anchors { get; private set; }
         public IEnumerable<Anchor> InputAnchors => Anchors.Where(a => a.IsInput);
         public IEnumerable<Anchor> OutputAnchors => Anchors.Where(a => !a.IsInput);
+        public BoxCollider2D Box {
+            get
+            {
+                if (_box == null)
+                    _box = GetComponentInChildren<BoxCollider2D>();
+                return _box;
+            }
+        }
 
         #endregion
 
@@ -27,6 +35,7 @@ namespace UntitledLogicGame
 
         private GateDefinition _definition;
         private int _lastState = -1;
+        private BoxCollider2D _box;
 
         #endregion
 
@@ -36,7 +45,7 @@ namespace UntitledLogicGame
         {
             Utils.RandomName(GateType.ToString(), gameObject);
             Anchors = GetComponentsInChildren<Anchor>().ToList();
-            _definition = GateDefinition.Get(GateType, this);   
+            _definition = GateDefinition.Get(GateType, this);
         }
 
         // Update is called once per frame
@@ -48,7 +57,6 @@ namespace UntitledLogicGame
                 _definition.Compute(this);
                 _lastState = state;
             }
-            
         }
 
         #endregion
