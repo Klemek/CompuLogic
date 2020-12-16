@@ -94,7 +94,7 @@ namespace UntitledLogicGame
                 {
                     _line.positionCount = 2;
                     _line.SetPosition(0, StartAnchor.transform.position);
-                    _line.SetPosition(1, MouseManager.MousePos);
+                    _line.SetPosition(1, PointerManager.MousePos);
                 }
                 else
                 {

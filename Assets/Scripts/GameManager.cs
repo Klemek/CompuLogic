@@ -38,7 +38,7 @@ namespace UntitledLogicGame
 
         public Gate CurrentGate { get; set; }
 
-        public MouseManager MouseManager { get; private set; }
+        public PointerManager MouseManager { get; private set; }
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace UntitledLogicGame
             if (Instance != null)
                 throw new InvalidOperationException("More than one GameManager in scene");
             Instance = this;
-            MouseManager = GetComponent<MouseManager>();
+            MouseManager = GetComponent<PointerManager>();
         }
 
         // Update is called once per frame
@@ -70,7 +70,7 @@ namespace UntitledLogicGame
         public void CreateGate(Gate gatePrefab, Vector3 position)
         {
             var gate = Instantiate(gatePrefab, GatesGroup);
-            gate.transform.position = MouseManager.MousePos - gate.Box.transform.position;
+            gate.transform.position = PointerManager.MousePos - gate.Box.transform.position;
             MouseManager.DragGate(gate, true);
         }
 

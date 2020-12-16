@@ -1,19 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VectorGraphics;
 using UnityEngine;
 
 namespace UntitledLogicGame
 {
-    public class MouseManager : MonoBehaviour
+    public class PointerManager : MonoBehaviour
     {
         #region Static Properties
 
-        public static MouseManager Instance => GameManager.Instance.MouseManager;
+        public static PointerManager Instance => GameManager.Instance.MouseManager;
 
         #endregion
 
         #region Unity Properties
+
+        public Texture2D DefaultCursor;
+        public Texture2D PointerCursor;
+        public Texture2D MoveCursor;
 
         #endregion
 
@@ -23,7 +28,11 @@ namespace UntitledLogicGame
 
         public bool Interacting => _currentCable != null || _currentGate != null;
 
+        public bool MovingObject => _currentGate != null;
+
         public static bool Clicking => Input.GetButton("Fire1");
+
+        public bool DeleteOnRelease { get; set; }
 
         #endregion
 
@@ -31,17 +40,13 @@ namespace UntitledLogicGame
 
         private Cable _currentCable;
         private Gate _currentGate;
-        private Vector3 _currentGateInitialPos;
+        private Vector3? _currentGateInitialPos;
         private Vector3 _currentGateDelta;
+        private Texture2D _currentCursor;
 
         #endregion
 
         #region Unity Methods
-
-        private void Start()
-        {
-            
-        }
 
         private void FixedUpdate()
         {
@@ -82,29 +87,39 @@ namespace UntitledLogicGame
             }
             else if(_currentGate != null)
             {
-                foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
+                if (DeleteOnRelease)
                 {
-                    renderer.sortingLayerName = "default";
+                    Destroy(_currentGate.gameObject);
                 }
-                _currentGate.transform.position = _currentGate.transform.position.Round();
-                var currentBox = _currentGate.Box;
-                if (FindObjectsOfType<Gate>()
-                    .Where(g => !g.Equals(_currentGate))
-                    .Select(g => g.Box)
-                    .Any(b => currentBox.IsTouching(b)))
+                else
                 {
-                    // Collision with another gate
-                    if(_currentGateInitialPos == null)
+                    foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
                     {
-                        Destroy(_currentGate.gameObject);
+                        renderer.sortingLayerName = "default";
                     }
-                    else
+                    _currentGate.transform.position = _currentGate.transform.position.Round();
+                    var currentBox = _currentGate.Box;
+                    if (FindObjectsOfType<Gate>()
+                        .Where(g => !g.Equals(_currentGate))
+                        .Select(g => g.Box)
+                        .Any(b => currentBox.IsTouching(b)))
                     {
-                        _currentGate.transform.position = _currentGateInitialPos; // Reset pos
+                        // Collision with another gate
+                        if (_currentGateInitialPos == null)
+                        {
+                            Destroy(_currentGate.gameObject);
+                        }
+                        else
+                        {
+                            _currentGate.transform.position = _currentGateInitialPos.Value; // Reset pos
+                        }
                     }
                 }
                 _currentGate = null;
+                DeleteOnRelease = false;
             }
+
+            SetCursor();
         }
 
         #endregion
@@ -115,17 +130,48 @@ namespace UntitledLogicGame
         {
             _currentGate = gate;
             _currentGateDelta = MousePos - _currentGate.transform.position;
-            if(!created)
-                _currentGateInitialPos = _currentGate.transform.position;
+            _currentGateInitialPos = created ? (Vector3?)null : _currentGate.transform.position;
             foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
             {
                 renderer.sortingLayerName = "moving";
             }
         }
 
+        public void RequestDelete()
+        {
+            if (_currentGate != null)
+            {
+                Destroy(_currentGate.gameObject);
+                _currentGate = null;
+            }
+        }
+
         #endregion
 
         #region Private Methods
+
+        private void SetCursor()
+        {
+            Texture2D cursor = DefaultCursor;
+            Vector2 position = Vector2.zero;
+
+            if(!Interacting && GameManager.Instance.CurrentAnchor != null || Interacting && _currentCable != null)
+            {
+                cursor = PointerCursor;
+                position = new Vector2(cursor.width / 2f, 0f);
+            }
+            else if (!Interacting && GameManager.Instance.CurrentGate != null || Interacting && _currentGate != null)
+            {
+                cursor = MoveCursor;
+                position = new Vector2(cursor.width / 2f, cursor.height / 2f);
+            }
+
+            if(_currentCursor != cursor)
+            {
+                Cursor.SetCursor(cursor, position, CursorMode.Auto);
+                _currentCursor = cursor;
+            }
+        }
 
         #endregion
     }

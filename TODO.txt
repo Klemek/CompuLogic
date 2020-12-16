@@ -3,8 +3,6 @@ TODO
 -(1) button gates
 -(1) led gates
 -(2) named anchors
--(3) overlay to drag &drop new gates
--(3) same but to destroy gates
 -(3) generic rect gates
 -(3) state gates
 -(5) cable management

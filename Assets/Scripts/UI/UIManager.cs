@@ -11,6 +11,7 @@ namespace UntitledLogicGame.UI
 
         [Header("Components")]
         public GameObject GateBar;
+        public GameObject MovingBar;
 
         [Header("Prefabs")]
         public UIGate UIGatePrefab;
@@ -41,16 +42,18 @@ namespace UntitledLogicGame.UI
                 uiGate.RectTransform.anchoredPosition = new Vector2(currentPos, 0);
                 currentPos += uiGate.RectTransform.sizeDelta.x;
             }
-            
+
+            MovingBar.SetActive(false);
         }
 
         private void FixedUpdate()
         {
-            if(MouseManager.Instance.Interacting != _lastMouseInteracting)
+            if(PointerManager.Instance.Interacting != _lastMouseInteracting)
             {
                 //TODO animate go down
-                GateBar.SetActive(!MouseManager.Instance.Interacting);
-                _lastMouseInteracting = MouseManager.Instance.Interacting;
+                GateBar.SetActive(!PointerManager.Instance.Interacting);
+                MovingBar.SetActive(PointerManager.Instance.MovingObject);
+                _lastMouseInteracting = PointerManager.Instance.Interacting;
             }
         }
 
