@@ -111,13 +111,13 @@ namespace UntitledLogicGame
                         if (Mathf.Abs(endOr.x) > 0)
                         {
                             var middle = (startPos.x + endPos.x) / 2;
-                            _line.SetPosition(1, new Vector3(middle, startPos.y, 0));
-                            _line.SetPosition(2, new Vector3(middle, endPos.y, 0));
+                            _line.SetPosition(1, new Vector3(middle, startPos.y, startPos.z));
+                            _line.SetPosition(2, new Vector3(middle, endPos.y, startPos.z));
                         }
                         else
                         {
-                            _line.SetPosition(1, new Vector3(startPos.x, endPos.y, 0));
-                            _line.SetPosition(2, new Vector3(startPos.x, endPos.y, 0));
+                            _line.SetPosition(1, new Vector3(startPos.x, endPos.y, startPos.z));
+                            _line.SetPosition(2, new Vector3(startPos.x, endPos.y, startPos.z));
                         }
                     }
                     else
@@ -125,13 +125,13 @@ namespace UntitledLogicGame
                         if (Mathf.Abs(endOr.x) > 0)
                         {
                             var middle = (startPos.y + endPos.y) / 2;
-                            _line.SetPosition(1, new Vector3(startPos.x, middle, 0));
-                            _line.SetPosition(2, new Vector3(endPos.x, middle, 0));
+                            _line.SetPosition(1, new Vector3(startPos.x, middle, startPos.z));
+                            _line.SetPosition(2, new Vector3(endPos.x, middle, startPos.z));
                         }
                         else
                         {
-                            _line.SetPosition(1, new Vector3(endPos.x, startPos.y, 0));
-                            _line.SetPosition(2, new Vector3(endPos.x, startPos.y, 0));
+                            _line.SetPosition(1, new Vector3(endPos.x, startPos.y, startPos.z));
+                            _line.SetPosition(2, new Vector3(endPos.x, startPos.y, startPos.z));
                         }
                     }
 
