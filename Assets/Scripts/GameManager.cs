@@ -10,7 +10,15 @@ namespace UntitledLogicGame
     {
         #region Static Properties
 
-        public static GameManager Instance { get; set; }
+        public static GameManager Instance { 
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType<GameManager>();
+                return _instance;
+            }
+        }
+        private static GameManager _instance;
 
         #endregion
 
@@ -35,43 +43,36 @@ namespace UntitledLogicGame
         #region Public Properties
 
         public Anchor CurrentAnchor { get; set; }
-
         public Gate CurrentGate { get; set; }
-
-        public PointerManager MouseManager { get; private set; }
+        public PointerManager PointerManager 
+        {
+            get
+            {
+                if (_pointerManager == null)
+                    _pointerManager = GetComponent<PointerManager>();
+                return _pointerManager;
+            }
+        }
 
         #endregion
 
         #region Private Properties
 
+        private PointerManager _pointerManager;
+
         #endregion
 
         #region Unity Methods
-
-        // Start is called before the first frame update
-        private void Start()
-        {
-            if (Instance != null)
-                throw new InvalidOperationException("More than one GameManager in scene");
-            Instance = this;
-            MouseManager = GetComponent<PointerManager>();
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            
-        }
 
         #endregion
 
         #region Public Methods
 
-        public void CreateGate(Gate gatePrefab, Vector3 position)
+        public void CreateGate(Gate gatePrefab)
         {
             var gate = Instantiate(gatePrefab, GatesGroup);
             gate.transform.position = PointerManager.MousePos - gate.Box.transform.position;
-            MouseManager.DragGate(gate, true);
+            PointerManager.DragGate(gate, true);
         }
 
         #endregion

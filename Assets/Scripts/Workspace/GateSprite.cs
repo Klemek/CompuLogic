@@ -14,6 +14,8 @@ namespace UntitledLogicGame.Workspace
 
         #region Public Properties
 
+        public bool Hovering { get; internal set; }
+
         #endregion
 
         #region Private Properties
@@ -38,12 +40,14 @@ namespace UntitledLogicGame.Workspace
         private void OnMouseEnter()
         {
             GameManager.Instance.CurrentGate = _gate;
+            Hovering = true;
         }
 
         private void OnMouseExit()
         {
             if (_gate.Equals(GameManager.Instance.CurrentGate))
                 GameManager.Instance.CurrentGate = null;
+            Hovering = false;
         }
 
         #endregion

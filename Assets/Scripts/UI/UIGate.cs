@@ -26,7 +26,6 @@ namespace UntitledLogicGame.UI
                 gameObject.name = "UI_" + _gatePrefab.GateType.ToString();
             }
         }
-
         public RectTransform RectTransform
         {
             get
@@ -50,9 +49,7 @@ namespace UntitledLogicGame.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            var position = Camera.main.ScreenToWorldPoint(transform.position);
-            position.z = 0f;
-            GameManager.Instance.CreateGate(_gatePrefab, position);
+            GameManager.Instance.CreateGate(_gatePrefab);
         }
 
         #endregion

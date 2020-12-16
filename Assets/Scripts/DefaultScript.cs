@@ -15,6 +15,10 @@ namespace UntitledLogicGame
 
     //    #endregion
 
+    //    #region Private Properties
+
+    //    #endregion
+
     //    #region Unity Methods
 
     //    #endregion

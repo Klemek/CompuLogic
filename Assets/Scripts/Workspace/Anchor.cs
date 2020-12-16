@@ -35,6 +35,7 @@ namespace UntitledLogicGame.Workspace
                     _activated = value;
             }
         }
+        public bool Hovering { get; internal set; }
 
         #endregion
 
@@ -74,6 +75,7 @@ namespace UntitledLogicGame.Workspace
         {
             transform.localScale = _scale * ScaleIncrease;
             GameManager.Instance.CurrentAnchor = this;
+            Hovering = true;
         }
 
         private void OnMouseExit()
@@ -81,6 +83,7 @@ namespace UntitledLogicGame.Workspace
             transform.localScale = _scale;
             if (Equals(GameManager.Instance.CurrentAnchor))
                 GameManager.Instance.CurrentAnchor = null;
+            Hovering = false;
         }
 
         private void OnDestroy()

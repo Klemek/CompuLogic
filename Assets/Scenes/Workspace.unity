@@ -523,6 +523,8 @@ MonoBehaviour:
   DeadColor: {r: 0, g: 0.20240787, b: 0.262, a: 1}
   ActivatedColor: {r: 0, g: 0.7725491, b: 1, a: 1}
   GatePrefabs:
+  - {fileID: 2608629621584006415, guid: 4e410a1e5a455034f8c0c608cca0f50d, type: 3}
+  - {fileID: 8526475217245682975, guid: 992b79e7e4c2e1a4f873c64c51e9f52b, type: 3}
   - {fileID: 395496744302543944, guid: 7f0ed90de4f8dcf4cb3b8bd1f47a6c55, type: 3}
   - {fileID: 5414015581782372340, guid: f9d4ead6b60b0ac4ca6d566c674c515d, type: 3}
   - {fileID: 1880784449839238515, guid: 426ccfa3b75c9644c80250677d1089f6, type: 3}
@@ -556,6 +558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e573998e532eb42bdb43b80953d23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DoubleClickThreshold: 0.05
+  DoubleClickDelay: 0.5
   DefaultCursor: {fileID: 6192944022281365145, guid: d0f05a0b5d7c9b241a26dbe09b647c63, type: 3}
   PointerCursor: {fileID: 6192944022281365145, guid: d14431ce61c8d5748b32f4a3bcfd2994, type: 3}
   MoveCursor: {fileID: 6192944022281365145, guid: 41b6be3f02726104888f2c62cdc89fdf, type: 3}

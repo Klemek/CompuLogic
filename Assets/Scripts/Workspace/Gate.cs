@@ -17,7 +17,15 @@ namespace UntitledLogicGame.Workspace
 
         #region Public Properties
 
-        public List<Anchor> Anchors { get; private set; }
+        public IEnumerable<Anchor> Anchors 
+        {
+            get
+            {
+                if(_anchors == null)
+                    _anchors = GetComponentsInChildren<Anchor>().ToList();
+                return _anchors;
+            }
+        }
         public IEnumerable<Anchor> InputAnchors => Anchors.Where(a => a.IsInput);
         public IEnumerable<Anchor> OutputAnchors => Anchors.Where(a => !a.IsInput);
         public BoxCollider2D Box {
@@ -28,14 +36,34 @@ namespace UntitledLogicGame.Workspace
                 return _box;
             }
         }
+        public GateSprite Sprite
+        {
+            get
+            {
+                if(_sprite == null)
+                    _sprite = GetComponentInChildren<GateSprite>();
+                return _sprite;
+            }
+        }
+        public GateDefinition Definition
+        {
+            get
+            {
+                if(_definition == null)
+                    _definition = GateDefinition.Get(GateType, this);
+                return _definition;
+            }
+        }
 
         #endregion
 
         #region Private Properties
 
+        private IEnumerable<Anchor> _anchors;
         private GateDefinition _definition;
         private int _lastState = -1;
         private BoxCollider2D _box;
+        private GateSprite _sprite;
 
         #endregion
 
@@ -44,17 +72,15 @@ namespace UntitledLogicGame.Workspace
         private void Start()
         {
             Utils.RandomName(GateType.ToString(), gameObject);
-            Anchors = GetComponentsInChildren<Anchor>().ToList();
-            _definition = GateDefinition.Get(GateType, this);
         }
 
         // Update is called once per frame
         private void Update()
         {
-            var state = _definition.GetState(this).ToInt();
+            var state = Definition.GetState(this).ToInt();
             if(state != _lastState)
             {
-                _definition.Compute(this);
+                Definition.Compute(this);
                 _lastState = state;
             }
         }

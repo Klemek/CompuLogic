@@ -11,12 +11,17 @@ namespace UntitledLogicGame
     {
         #region Static Properties
 
-        public static PointerManager Instance => GameManager.Instance.MouseManager;
+        public static PointerManager Instance => GameManager.Instance.PointerManager;
 
         #endregion
 
         #region Unity Properties
 
+        [Header("Click")]
+        public float DoubleClickThreshold;
+        public float DoubleClickDelay;
+
+        [Header("Cursor")]
         public Texture2D DefaultCursor;
         public Texture2D PointerCursor;
         public Texture2D MoveCursor;
@@ -26,13 +31,9 @@ namespace UntitledLogicGame
         #region Public Properties
 
         public static Vector3 MousePos { get; set; }
-
         public bool Interacting => _currentCable != null || _currentGate != null;
-
         public bool MovingObject => _currentGate != null;
-
-        public static bool Clicking => Input.GetButton("Fire1");
-
+        public bool Clicking => Input.GetButton("Fire1");
         public bool DeleteOnRelease { get; set; }
 
         #endregion
@@ -44,6 +45,8 @@ namespace UntitledLogicGame
         private Vector3? _currentGateInitialPos;
         private Vector3 _currentGateDelta;
         private Texture2D _currentCursor;
+        private float _clicked = 0f;
+        private float _clicktime = 0f;
 
         #endregion
 
@@ -145,6 +148,33 @@ namespace UntitledLogicGame
                 Destroy(_currentGate.gameObject);
                 _currentGate = null;
             }
+        }
+
+        public bool DoubleClick()
+        {
+            
+            if (Clicking)
+            {
+                _clicked += Time.deltaTime;
+            }
+            else
+            {
+                if(_clicked >= DoubleClickThreshold)
+                {
+                    if(Time.time - _clicktime < DoubleClickDelay)
+                    {
+                        _clicked = 0f;
+                        _clicktime = 0f;
+                        return true;
+                    }
+                    else
+                    {
+                        _clicktime = Time.time;
+                    }
+                }
+                _clicked = 0f;
+            }
+            return false;
         }
 
         #endregion

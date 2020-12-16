@@ -22,13 +22,10 @@ namespace UntitledLogicGame.Workspace.Gates
 
     public abstract class GateDefinition
     {
-        public abstract string[] Inputs { get; }
-
-        public abstract string[] Outputs { get; }
-
-        internal abstract Dictionary<State, State> TruthTable { get; }
-
         private static Dictionary<GateType, GateDefinition> Definitions;
+        public abstract string[] Inputs { get; }
+        public abstract string[] Outputs { get; }
+        internal abstract Dictionary<State, State> TruthTable { get; }
 
         private static void LoadAll()
         {
@@ -42,9 +39,6 @@ namespace UntitledLogicGame.Workspace.Gates
 
         public static GateDefinition Get(GateType gateType, Gate gate)
         {
-            if (gateType == GateType.None)
-                throw new InvalidOperationException("GateType is set to None");
-
             if (Definitions == null)
                 LoadAll();
 
@@ -92,11 +86,14 @@ namespace UntitledLogicGame.Workspace.Gates
 
         public void Compute(Gate gate)
         {
-            State key = new State(GetState(gate));
-            bool[] values = TruthTable[key].values;
-            foreach (var output in Outputs.Select((value, i) => new { i, value }))
+            if(TruthTable.Count > 0)
             {
-                gate.OutputAnchors.First(a => a.Name.Equals(output.value)).Activated = values[output.i];
+                State key = new State(GetState(gate));
+                bool[] values = TruthTable[key].values;
+                foreach (var output in Outputs.Select((value, i) => new { i, value }))
+                {
+                    gate.OutputAnchors.First(a => a.Name.Equals(output.value)).Activated = values[output.i];
+                }
             }
         }
     }

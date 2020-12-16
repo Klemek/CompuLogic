@@ -1,7 +1,5 @@
 TODO
 -(0) mux/demux
--(1) button gates
--(1) led gates
 -(2) named anchors
 -(3) generic rect gates
 -(3) state gates
