@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace UntitledLogicGame.Gates
+namespace UntitledLogicGame.Workspace.Gates
 {
     public enum GateType
     {

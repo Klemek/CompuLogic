@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UntitledLogicGame.Gates;
+using UntitledLogicGame.Workspace.Gates;
 
-namespace UntitledLogicGame
+namespace UntitledLogicGame.Workspace
 {
     public class Gate : MonoBehaviour
     {

@@ -4,6 +4,7 @@ using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UntitledLogicGame.Workspace;
 
 namespace UntitledLogicGame.UI
 {
