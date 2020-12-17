@@ -23,7 +23,7 @@ namespace UntitledLogicGame
 
         public static bool[][] AllBoolArrayValues(int length)
         {
-            int count = (int)Math.Pow(2, length);
+            var count = (int)Math.Pow(2, length);
             return new ArrayList[count].Select((v, i) => i.ToBoolArray(length)).ToArray();
         }
 
@@ -43,7 +43,7 @@ namespace UntitledLogicGame
     {
         public static bool[] ToBoolArray(this int value, int length)
         {
-            string str = Convert.ToString(value, 2).PadLeft(length, '0');
+            var str = Convert.ToString(value, 2).PadLeft(length, '0');
             return str.Select((x) => x == '1').ToArray();
         }
 

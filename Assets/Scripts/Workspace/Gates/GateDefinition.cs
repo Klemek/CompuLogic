@@ -12,7 +12,7 @@ namespace UntitledLogicGame.Workspace.Gates
         public abstract string[] Outputs { get; }
         internal abstract Dictionary<InputState, OutputState> TruthTable { get; }
         public string Name { get; internal set; }
-        public bool HasState { get; } = false;
+        public bool HasState => false;
         public GateDefinition New => (GateDefinition)GetType().GetConstructor(new Type[0]).Invoke(new object[0]);
 
         private static void LoadAll()
@@ -22,7 +22,7 @@ namespace UntitledLogicGame.Workspace.Gates
             {
                 try
                 {
-                    Type t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
+                    var t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
                     Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
                     Definitions[gateType].Name = gateType.ToString();
                 }
@@ -39,7 +39,7 @@ namespace UntitledLogicGame.Workspace.Gates
             if (Definitions == null)
                 LoadAll();
 
-            GateDefinition definition = Definitions[gateType];
+            var definition = Definitions[gateType];
 
             foreach (var inputName in definition.Inputs)
             {
@@ -61,21 +61,35 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal GateDefinition()
         {
-            foreach(var key in TruthTable.Keys)
+            if (!HasState)
             {
-                if (key.Length != Inputs.Length)
-                    throw new InvalidOperationException($"{GetType()} invalid inputs ({key})");
-            }
-            if(Inputs.Length != 0)
-            {
-                foreach (var key in Utils.AllBoolArrayValues(Inputs.Length).Select(b => new InputState(b)))
+                if (TruthTable.Count > 0)
                 {
-                    if (!TruthTable.Keys.Contains(key))
-                        throw new InvalidOperationException($"{GetType()} no outputs for ({key})");
-                    var values = TruthTable[key];
-                    if (values.Length != Outputs.Length)
-                        throw new InvalidOperationException($"{GetType()} invalid outputs for ({key})");
+                    foreach (var key in TruthTable.Keys)
+                    {
+                        if (key.Length != Inputs.Length)
+                            throw new InvalidOperationException($"{GetType()} invalid inputs ({key})");
+                    }
+                    if (Inputs.Length != 0)
+                    {
+                        foreach (var key in Utils.AllBoolArrayValues(Inputs.Length).Select(b => new InputState(b)))
+                        {
+                            if (!TruthTable.Keys.Contains(key))
+                                throw new InvalidOperationException($"{GetType()} no outputs for ({key})");
+                            var values = TruthTable[key];
+                            if (values.Length != Outputs.Length)
+                                throw new InvalidOperationException($"{GetType()} invalid outputs for ({key})");
+                        }
+                    }
                 }
+            }
+            else
+            {
+                // Only test basic value
+                var sample = new InputState(Inputs.Length);
+                var output = Compute(sample);
+                if(output.Length != Outputs.Length)
+                    throw new InvalidOperationException($"{GetType()} invalid outputs for sample ({sample})");
             }
         }
 
@@ -86,8 +100,8 @@ namespace UntitledLogicGame.Workspace.Gates
 
         public void Compute(Gate gate)
         {
-            InputState input = new InputState(GetState(gate));
-            State output = Compute(input);
+            var input = new InputState(GetState(gate));
+            var output = Compute(input);
             foreach (var outputAnchor in Outputs.Select((name, i) => new { i, name }))
                 gate.OutputAnchors.First(a => a.Name.Equals(outputAnchor.name)).Activated = output[outputAnchor.i];
         }

@@ -183,8 +183,10 @@ namespace UntitledLogicGame
 
         private void SetCursor()
         {
-            Texture2D cursor = DefaultCursor;
-            Vector2 position = Vector2.zero;
+            var cursor = DefaultCursor;
+            var position = Vector2.zero;
+
+            //TODO fix warning about invalid Texture2D
 
             if(!Interacting && GameManager.Instance.CurrentAnchor != null || Interacting && _currentCable != null)
             {

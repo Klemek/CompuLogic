@@ -130,7 +130,7 @@ namespace UntitledLogicGame.Workspace.Gates
     internal class SRLatchGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "S", "R" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "SR Latch";
         public new bool HasState => true;
@@ -139,20 +139,20 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool s = input[0];
-            bool r = input[1];
+            var s = input[0];
+            var r = input[1];
             if (r)
                 _q = false;
             else if (s)
                 _q = true;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
     internal class JKLatchGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "J", "K" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "JK Latch";
         public new bool HasState => true;
@@ -161,22 +161,22 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool j = input[0];
-            bool k = input[1];
+            var j = input[0];
+            var k = input[1];
             if (k && j)
                 _q = !_q;
             else if (k)
                 _q = false;
             else if (j)
                 _q = true;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
     internal class DLatchGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "D", "E" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "D Latch";
         public new bool HasState => true;
@@ -185,11 +185,11 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool d = input[0];
-            bool e = input[1];
+            var d = input[0];
+            var e = input[1];
             if (e)
                 _q = d;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
@@ -200,7 +200,7 @@ namespace UntitledLogicGame.Workspace.Gates
     internal class SRFlipFlopGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "S", "R", "CLK" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "SR Flip-Flop";
         public new bool HasState => true;
@@ -210,23 +210,23 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool s = input[0];
-            bool r = input[1];
-            bool clk = input[2];
+            var s = input[0];
+            var r = input[1];
+            var clk = input[2];
             if (clk && !_lastClk) // rising edge
                 if (r)
                     _q = false;
                 else if (s)
                     _q = true;
             _lastClk = clk;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
     internal class JKFlipFlopGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "J", "K", "CLK" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "JK Flip-Flop";
         public new bool HasState => true;
@@ -236,9 +236,9 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool j = input[0];
-            bool k = input[1];
-            bool clk = input[2];
+            var j = input[0];
+            var k = input[1];
+            var clk = input[2];
             if (clk && !_lastClk) // rising edge
                 if (k && j)
                     _q = !_q;
@@ -247,14 +247,14 @@ namespace UntitledLogicGame.Workspace.Gates
                 else if (j)
                     _q = true;
             _lastClk = clk;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
     internal class DFlipFlopGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "D", "CLK" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "D Flip-Flop";
         public new bool HasState => true;
@@ -264,19 +264,19 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool d = input[0];
-            bool clk = input[1];
+            var d = input[0];
+            var clk = input[1];
             if (clk && !_lastClk) // rising edge
                 _q = d;
             _lastClk = clk;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
     internal class TFlipFlopGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "T", "CLK" };
-        public override string[] Outputs { get; } = new string[] { "Q" };
+        public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
         internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
         public new string Name => "T Flip-Flop";
         public new bool HasState => true;
@@ -286,13 +286,13 @@ namespace UntitledLogicGame.Workspace.Gates
 
         internal new OutputState Compute(InputState input)
         {
-            bool t = input[0];
-            bool clk = input[1];
+            var t = input[0];
+            var clk = input[1];
             if (clk && !_lastClk) // rising edge
                 if (t)
                     _q = !_q;
             _lastClk = clk;
-            return new OutputState(_q);
+            return new OutputState(_q, !_q);
         }
     }
 
