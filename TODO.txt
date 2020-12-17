@@ -1,6 +1,8 @@
 TODO
 -(0) mux/demux
+-(2) gate bar sub categories
 -(2) named anchors
+-(3) clocks (1Hz, 5Hz, 10Hz, etc.)
 -(3) generic rect gates
 -(3) state gates
 -(3) cable overlap (same/diff circuit)

@@ -26,8 +26,8 @@ namespace UntitledLogicGame.UI
                 var subimage = GetComponentInChildren<SVGImage>();
                 subimage.sprite = sprite;
                 subimage.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * sprite.rect.width / 700f); // TODO get max width from UIManager
-                gameObject.name = "UI_" + _gatePrefab.GateType.ToString();
-                GetComponentInChildren<TextMeshProUGUI>().text = _gatePrefab.GateType.ToString();
+                gameObject.name = "UI_" + _gatePrefab.Definition.Name;
+                GetComponentInChildren<TextMeshProUGUI>().text = _gatePrefab.Definition.Name;
             }
         }
 
@@ -36,7 +36,6 @@ namespace UntitledLogicGame.UI
         #region Private Properties
 
         private Gate _gatePrefab;
-        private RectTransform _rectTransform;
 
         #endregion
 

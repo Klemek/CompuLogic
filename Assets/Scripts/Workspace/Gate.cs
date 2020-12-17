@@ -10,7 +10,6 @@ namespace UntitledLogicGame.Workspace
     {
         #region Unity Properties
 
-        public bool HasState;
         public GateType GateType;
 
         #endregion
@@ -71,7 +70,7 @@ namespace UntitledLogicGame.Workspace
 
         private void Start()
         {
-            Utils.RandomName(GateType.ToString(), gameObject);
+            Utils.RandomName(Definition.Name, gameObject);
         }
 
         // Update is called once per frame
@@ -91,7 +90,7 @@ namespace UntitledLogicGame.Workspace
 
         public bool HasInputAnchor(Anchor target)
         {
-            return !HasState && (
+            return !Definition.HasState && (
                     InputAnchors.Contains(target) ||
                     InputAnchors.Any(a => a.HasInputAnchor(target))
                 );
