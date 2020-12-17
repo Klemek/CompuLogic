@@ -38,13 +38,9 @@ namespace UntitledLogicGame.Workspace
             Utils.RandomName("Input", gameObject);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if ((Sprite.Hovering || OutputAnchor.Hovering) && PointerManager.Instance.DoubleClick())
-            {
-                State = !State;
-                OutputAnchor.Activated = State;
-            }
+            UpdateState();
         }
 
         #endregion
@@ -54,6 +50,15 @@ namespace UntitledLogicGame.Workspace
         #endregion
 
         #region Private Methods
+
+        private void UpdateState()
+        {
+            if ((Sprite.Hovering || OutputAnchor.Hovering) && PointerManager.Instance.DoubleClick())
+            {
+                State = !State;
+                OutputAnchor.Activated = State;
+            }
+        }
 
         #endregion
     }

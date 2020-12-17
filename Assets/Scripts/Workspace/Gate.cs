@@ -76,12 +76,7 @@ namespace UntitledLogicGame.Workspace
         // Update is called once per frame
         private void Update()
         {
-            var state = Definition.GetState(this).ToInt();
-            if(state != _lastState)
-            {
-                Definition.Compute(this);
-                _lastState = state;
-            }
+            UpdateState();
         }
 
         #endregion
@@ -99,6 +94,16 @@ namespace UntitledLogicGame.Workspace
         #endregion
 
         #region Private Methods
+
+        private void UpdateState()
+        {
+            var state = Definition.GetState(this).ToInt();
+            if (state != _lastState)
+            {
+                Definition.Compute(this);
+                _lastState = state;
+            }
+        }
 
         #endregion
 

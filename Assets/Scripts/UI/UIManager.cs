@@ -48,13 +48,7 @@ namespace UntitledLogicGame.UI
 
         private void FixedUpdate()
         {
-            if(PointerManager.Instance.Interacting != _lastMouseInteracting)
-            {
-                //TODO animate go down
-                GateBar.SetActive(!PointerManager.Instance.Interacting);
-                MovingBar.SetActive(PointerManager.Instance.MovingObject);
-                _lastMouseInteracting = PointerManager.Instance.Interacting;
-            }
+            UpdateUI();
         }
 
         #endregion
@@ -64,6 +58,17 @@ namespace UntitledLogicGame.UI
         #endregion
 
         #region Private Methods
+
+        private void UpdateUI()
+        {
+            if (PointerManager.Instance.Interacting != _lastMouseInteracting)
+            {
+                //TODO animate go down
+                GateBar.SetActive(!PointerManager.Instance.Interacting);
+                MovingBar.SetActive(PointerManager.Instance.MovingObject);
+                _lastMouseInteracting = PointerManager.Instance.Interacting;
+            }
+        }
 
         #endregion
     }

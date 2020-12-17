@@ -33,12 +33,29 @@ namespace UntitledLogicGame
 
         private void FixedUpdate()
         {
+            UpdateZoom();
+            UpdateDrag();
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        #endregion
+
+        #region Private Methods
+
+        private void UpdateZoom()
+        {
             var size = Camera.main.orthographicSize;
             size -= Input.GetAxis("Mouse ScrollWheel") * ScrollSensitivity;
             size = Mathf.Clamp(size, MinSize, MaxSize);
             Camera.main.orthographicSize = size;
             Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -size);
+        }
 
+        private void UpdateDrag()
+        {
             if (Input.GetMouseButton(2))
             {
                 var mousePos = Camera101.ScreenToWorldPoint(Input.mousePosition);
@@ -52,19 +69,11 @@ namespace UntitledLogicGame
 
                 Camera.main.transform.position = _startDragPos.Value - (mousePos - _startDragMousePos) * Camera.main.orthographicSize;
             }
-            else if(_startDragPos != null)
+            else if (_startDragPos != null)
             {
                 _startDragPos = null;
             }
         }
-
-        #endregion
-
-        #region Public Methods
-
-        #endregion
-
-        #region Private Methods
 
         #endregion
     }

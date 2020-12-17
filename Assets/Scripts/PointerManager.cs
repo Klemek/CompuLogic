@@ -54,76 +54,18 @@ namespace UntitledLogicGame
 
         private void FixedUpdate()
         {
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
-            MousePos = mousePos;
+            UpdateMousePos();
 
             if (Clicking)
             {
-                if(_currentCable == null)
-                {
-                    if (_currentGate != null)
-                    {
-                        _currentGate.transform.position = MousePos - _currentGateDelta;
-                    }
-                    else if (GameManager.Instance.CurrentAnchor != null)
-                    {
-                        _currentCable = Instantiate(GameManager.Instance.CablePrefab, GameManager.Instance.CablesGroup, true);
-                        _currentCable.StartAnchor = GameManager.Instance.CurrentAnchor;
-                    }
-                    else if (GameManager.Instance.CurrentGate != null)
-                    {
-                        DragGate(GameManager.Instance.CurrentGate, false);
-                    }
-                }
+                UpdateDrag();
             }
-            else if (_currentCable != null)
+            else
             {
-                if (GameManager.Instance.CurrentAnchor == null || _currentCable.StartAnchor.IsInput == GameManager.Instance.CurrentAnchor.IsInput)
-                {
-                    Destroy(_currentCable.gameObject);
-                }
-                else
-                {
-                    _currentCable.EndAnchor = GameManager.Instance.CurrentAnchor;
-                }
-                _currentCable = null;
-            }
-            else if(_currentGate != null)
-            {
-                if (DeleteOnRelease)
-                {
-                    Destroy(_currentGate.gameObject);
-                }
-                else
-                {
-                    foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
-                    {
-                        renderer.sortingLayerName = "default";
-                    }
-                    _currentGate.transform.position = _currentGate.transform.position.Round();
-                    var currentBox = _currentGate.Box;
-                    if (FindObjectsOfType<Gate>()
-                        .Where(g => !g.Equals(_currentGate))
-                        .Select(g => g.Box)
-                        .Any(b => currentBox.IsTouching(b)))
-                    {
-                        // Collision with another gate
-                        if (_currentGateInitialPos == null)
-                        {
-                            Destroy(_currentGate.gameObject);
-                        }
-                        else
-                        {
-                            _currentGate.transform.position = _currentGateInitialPos.Value; // Reset pos
-                        }
-                    }
-                }
-                _currentGate = null;
-                DeleteOnRelease = false;
+                UpdateDrop();
             }
 
-            SetCursor();
+            UpdateCursor();
         }
 
         #endregion
@@ -181,14 +123,19 @@ namespace UntitledLogicGame
 
         #region Private Methods
 
-        private void SetCursor()
+        private static void UpdateMousePos()
+        {
+            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
+            MousePos = mousePos;
+        }
+
+        private void UpdateCursor()
         {
             var cursor = DefaultCursor;
             var position = Vector2.zero;
 
-            //TODO fix warning about invalid Texture2D
-
-            if(!Interacting && GameManager.Instance.CurrentAnchor != null || Interacting && _currentCable != null)
+            if (!Interacting && GameManager.Instance.CurrentAnchor != null || Interacting && _currentCable != null)
             {
                 cursor = PointerCursor;
                 position = new Vector2(cursor.width / 2f, 0f);
@@ -201,10 +148,84 @@ namespace UntitledLogicGame
 
             if(_currentCursor != cursor)
             {
+                //TODO Invalid texture used for cursor - check importer settings or texture creation. Texture must be RGBA32, readable, have alphaIsTransparency enabled and have no mip chain.
                 Cursor.SetCursor(cursor, position, CursorMode.Auto);
                 _currentCursor = cursor;
             }
         }
+
+        private void UpdateDrag()
+        {
+            if (_currentCable != null) // Dragging cable
+            {
+                _currentCable.FallbackEndPos = MousePos;
+            }
+            else if (_currentGate != null) // Dragging gate
+            {
+                _currentGate.transform.position = MousePos - _currentGateDelta;
+            }
+            else if (GameManager.Instance.CurrentAnchor != null) // Dragging new cable
+            {
+                _currentCable = Instantiate(GameManager.Instance.CablePrefab, GameManager.Instance.CablesGroup, true);
+                _currentCable.StartAnchor = GameManager.Instance.CurrentAnchor;
+                _currentCable.FallbackEndPos = MousePos;
+            }
+            else if (GameManager.Instance.CurrentGate != null) // Dragging new gate
+            {
+                DragGate(GameManager.Instance.CurrentGate, false);
+            }
+        }
+
+        private void UpdateDrop()
+        {
+            if (_currentCable != null) // Dropping cable
+            {
+                if (GameManager.Instance.CurrentAnchor == null || _currentCable.StartAnchor.IsInput == GameManager.Instance.CurrentAnchor.IsInput)
+                {
+                    Destroy(_currentCable.gameObject);
+                }
+                else
+                {
+                    _currentCable.EndAnchor = GameManager.Instance.CurrentAnchor;
+                }
+                _currentCable = null;
+            }
+            else if (_currentGate != null) // Dropping gate
+            {
+                if (DeleteOnRelease)
+                {
+                    Destroy(_currentGate.gameObject);
+                }
+                else
+                {
+                    foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        renderer.sortingLayerName = "default";
+                    }
+                    _currentGate.transform.position = _currentGate.transform.position.Round();
+                    var currentBox = _currentGate.Box;
+                    if (FindObjectsOfType<Gate>()
+                        .Where(g => !g.Equals(_currentGate))
+                        .Select(g => g.Box)
+                        .Any(b => currentBox.IsTouching(b)))
+                    {
+                        // Collision with another gate
+                        if (_currentGateInitialPos == null)
+                        {
+                            Destroy(_currentGate.gameObject);
+                        }
+                        else
+                        {
+                            _currentGate.transform.position = _currentGateInitialPos.Value; // Reset pos
+                        }
+                    }
+                }
+                _currentGate = null;
+                DeleteOnRelease = false;
+            }
+        }
+
+        
 
         #endregion
     }

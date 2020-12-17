@@ -64,11 +64,7 @@ namespace UntitledLogicGame.Workspace
         // Update is called once per frame
         private void Update()
         {
-            if (_lastActivated == null || _lastActivated != Activated)
-            {
-                _sprite.color = Activated ? GameManager.Instance.ActivatedColor : GameManager.Instance.DeadColor;
-                _lastActivated = Activated;
-            }
+            UpdateState();
         }
 
         private void OnMouseEnter()
@@ -109,6 +105,15 @@ namespace UntitledLogicGame.Workspace
         #endregion
 
         #region Private Methods
+
+        private void UpdateState()
+        {
+            if (_lastActivated == null || _lastActivated != Activated)
+            {
+                _sprite.color = Activated ? GameManager.Instance.ActivatedColor : GameManager.Instance.DeadColor;
+                _lastActivated = Activated;
+            }
+        }
 
         #endregion
     }

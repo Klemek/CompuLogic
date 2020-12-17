@@ -31,12 +31,6 @@ namespace UntitledLogicGame.Workspace
             _gate = GetComponentInParent<Gate>();
         }
 
-        // Update is called once per frame
-        private void Update()
-        {
-
-        }
-
         private void OnMouseEnter()
         {
             GameManager.Instance.CurrentGate = _gate;
