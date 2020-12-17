@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HasState: 0
-  GateType: 0
+  GateType: 100
 --- !u!1001 &1186815505049518421
 PrefabInstance:
   m_ObjectHideFlags: 0

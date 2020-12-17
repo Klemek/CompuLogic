@@ -39,8 +39,8 @@ namespace UntitledLogicGame.UI
             {
                 var uiGate = Instantiate(UIGatePrefab, GateBar.transform);
                 uiGate.GatePrefab = gatePrefab;
-                uiGate.RectTransform.anchoredPosition = new Vector2(currentPos, 0);
-                currentPos += uiGate.RectTransform.sizeDelta.x;
+                uiGate.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentPos, 0);
+                currentPos += 100f;
             }
 
             MovingBar.SetActive(false);

@@ -3,6 +3,7 @@ TODO
 -(2) named anchors
 -(3) generic rect gates
 -(3) state gates
+-(3) cable overlap (same/diff circuit)
 -(5) cable management
 -(5) buses
 -(?) find a name

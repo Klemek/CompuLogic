@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2637797866570093762, guid: e13798a14679ee74fa71d11caea77e78, type: 3}
       propertyPath: GateType
-      value: 8
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 4542802031506979094, guid: e13798a14679ee74fa71d11caea77e78, type: 3}
       propertyPath: m_Points.m_Paths.Array.size

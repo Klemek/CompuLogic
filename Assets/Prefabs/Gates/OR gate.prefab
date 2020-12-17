@@ -134,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2637797866570093762, guid: e13798a14679ee74fa71d11caea77e78, type: 3}
       propertyPath: GateType
-      value: 4
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 2637797866570093762, guid: e13798a14679ee74fa71d11caea77e78, type: 3}
       propertyPath: HasState

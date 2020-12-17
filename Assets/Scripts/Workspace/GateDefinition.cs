@@ -9,15 +9,21 @@ namespace UntitledLogicGame.Workspace.Gates
 {
     public enum GateType
     {
-        None,
-        Buffer,
-        NOTGate,
-        ANDGate,
-        ORGate,
-        XORGate,
-        NANDGate,
-        NORGate,
-        XNORGate
+        // 000 Technical
+        NONE    = 000,
+        // 100 Special
+        IN      = 100,
+        OUT     = 110,
+        // 200 Basic
+        BUF     = 200,
+        AND     = 210,
+        OR      = 220,
+        XOR     = 230,
+        // 300 Inverted Basic
+        NOT     = 300,
+        NAND    = 310,
+        NOR     = 320,
+        XNOR    = 330,
     }
 
     public abstract class GateDefinition
@@ -32,8 +38,16 @@ namespace UntitledLogicGame.Workspace.Gates
             Definitions = new Dictionary<GateType, GateDefinition>();
             foreach (var gateType in Enum.GetValues(typeof(GateType)).Cast<GateType>())
             {
-                Type t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}", true);
-                Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
+                try
+                {
+                    Type t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
+                    Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
+                }
+                catch
+                {
+                    Definitions[gateType] = (GateDefinition)typeof(NoneGate).GetConstructor(new Type[0]).Invoke(new object[0]);
+                }
+                
             }
         }
 
@@ -136,7 +150,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
     #region Gates
 
-    internal class None : GateDefinition
+    internal class NoneGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { };
         public override string[] Outputs { get; } = new string[] { };
@@ -145,7 +159,7 @@ namespace UntitledLogicGame.Workspace.Gates
         };
     }
 
-    internal class Buffer : GateDefinition
+    internal class BufferGate : GateDefinition
     {
         public override string[] Inputs { get; } = new string[] { "A" };
         public override string[] Outputs { get; } = new string[] { "Q" };
