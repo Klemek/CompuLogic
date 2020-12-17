@@ -31,9 +31,13 @@
         FullAdd = 610,
         HalSub = 620,
         FullSub = 630,
-        Mux = 740,
-        Demux = 750,
-        Enc = 760,
-        Dec = 770
-    }
+        Mux = 640,
+        Demux = 650,
+        Enc = 660,
+        Dec = 670,
+		// 700 - Registers
+		SISO4b = 700,
+		SIPO4b = 710,
+		PIPO4b = 720,
+	}
 }

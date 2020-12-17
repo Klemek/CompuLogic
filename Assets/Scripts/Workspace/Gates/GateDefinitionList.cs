@@ -199,7 +199,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	internal class SRFlipFlopGate : GateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "S", "R", "CLK" };
+		public override string[] Inputs { get; } = new string[] { "CLK", "S", "R" };
 		public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
 		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
 		public new string Name => "SR Flip-Flop";
@@ -210,9 +210,9 @@ namespace UntitledLogicGame.Workspace.Gates
 
 		internal new OutputState Compute(InputState input)
 		{
-			var s = input[0];
-			var r = input[1];
-			var clk = input[2];
+			var clk = input[0];
+			var s = input[1];
+			var r = input[2];
 			if (clk && !_lastClk) // rising edge
 				if (r) // reset
 					_q = false;
@@ -225,7 +225,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	internal class JKFlipFlopGate : GateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "J", "K", "CLK" };
+		public override string[] Inputs { get; } = new string[] { "CLK", "J", "K" };
 		public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
 		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
 		public new string Name => "JK Flip-Flop";
@@ -236,9 +236,9 @@ namespace UntitledLogicGame.Workspace.Gates
 
 		internal new OutputState Compute(InputState input)
 		{
-			var j = input[0];
-			var k = input[1];
-			var clk = input[2];
+			var clk = input[0];
+			var j = input[1];
+			var k = input[2];
 			if (clk && !_lastClk) // rising edge
 				if (k && j) // flip
 					_q = !_q;
@@ -253,7 +253,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	internal class DFlipFlopGate : GateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "D", "CLK" };
+		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
 		public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
 		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
 		public new string Name => "D Flip-Flop";
@@ -264,8 +264,8 @@ namespace UntitledLogicGame.Workspace.Gates
 
 		internal new OutputState Compute(InputState input)
 		{
-			var d = input[0];
-			var clk = input[1];
+			var clk = input[0];
+			var d = input[1];
 			if (clk && !_lastClk) // rising edge
 				_q = d;
 			_lastClk = clk;
@@ -275,7 +275,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	internal class TFlipFlopGate : GateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "T", "CLK" };
+		public override string[] Inputs { get; } = new string[] { "CLK", "T" };
 		public override string[] Outputs { get; } = new string[] { "Q", "Q̅" };
 		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
 		public new string Name => "T Flip-Flop";
@@ -286,8 +286,8 @@ namespace UntitledLogicGame.Workspace.Gates
 
 		internal new OutputState Compute(InputState input)
 		{
-			var t = input[0];
-			var clk = input[1];
+			var clk = input[0];
+			var t = input[1];
 			if (clk && !_lastClk) // rising edge
 				if (t) // flip
 					_q = !_q;
@@ -442,6 +442,103 @@ namespace UntitledLogicGame.Workspace.Gates
 			{ new InputState(	true,	true,	true,	false	), new OutputState( true,	true	) }, // D₀D₁
 			{ new InputState(	true,	true,	true,	true	), new OutputState( true,	true	) }, // D₀D₁
 		};
+	}
+
+	#endregion
+
+	#region 700 - Registers
+
+	internal class SISO4bGate : GateDefinition
+	{
+		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
+		public override string[] Outputs { get; } = new string[] { "Q" };
+		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
+		public new string Name => "4 bits SISO";
+		public new bool HasState => true;
+
+		private bool _q0;
+		private bool _q1;
+		private bool _q2;
+		private bool _q3;
+		private bool _lastClk;
+
+		internal new OutputState Compute(InputState input)
+		{
+			var clk = input[0];
+			var d = input[1];
+			if (clk && !_lastClk) // rising edge
+			{
+				_q3 = _q2;
+				_q2 = _q1;
+				_q1 = _q0;
+				_q0 = d;
+			}
+			_lastClk = clk;
+			return new OutputState(_q3);
+		}
+	}
+
+	internal class SIPO4bGate : GateDefinition
+	{
+		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
+		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁", "Q₂", "Q₃" };
+		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
+		public new string Name => "4 bits SIPO";
+		public new bool HasState => true;
+
+		private bool _q0;
+		private bool _q1;
+		private bool _q2;
+		private bool _q3;
+		private bool _lastClk;
+
+		internal new OutputState Compute(InputState input)
+		{
+			var clk = input[0];
+			var d = input[1];
+			if (clk && !_lastClk) // rising edge
+			{
+				_q3 = _q2;
+				_q2 = _q1;
+				_q1 = _q0;
+				_q0 = d;
+			}
+			_lastClk = clk;
+			return new OutputState(_q0, _q1, _q2, _q3);
+		}
+	}
+
+	internal class PIPO4bGate : GateDefinition
+	{
+		public override string[] Inputs { get; } = new string[] { "CLK", "D₀", "D₁", "D₂", "D₃"  };
+		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁", "Q₂", "Q₃" };
+		internal override Dictionary<InputState, OutputState> TruthTable => EmptyTruthTable;
+		public new string Name => "4 bits PIPO";
+		public new bool HasState => true;
+
+		private bool _q0;
+		private bool _q1;
+		private bool _q2;
+		private bool _q3;
+		private bool _lastClk;
+
+		internal new OutputState Compute(InputState input)
+		{
+			var clk = input[0];
+			var d0 = input[1];
+			var d1 = input[2];
+			var d2 = input[3];
+			var d3 = input[4];
+			if (clk && !_lastClk) // rising edge
+			{
+				_q3 = d3;
+				_q2 = d2;
+				_q1 = d1;
+				_q0 = d0;
+			}
+			_lastClk = clk;
+			return new OutputState(_q0, _q1, _q2, _q3);
+		}
 	}
 
 	#endregion
