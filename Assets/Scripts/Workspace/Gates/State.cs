@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace UntitledLogicGame.Workspace.Gates
 {
-    internal class InputState : State 
+    public class InputState : State 
     {
         public InputState(IEnumerable<bool> args) : base(args) { }
 
@@ -12,7 +12,7 @@ namespace UntitledLogicGame.Workspace.Gates
         public InputState(int len) : base(len) { }
     }
 
-    internal class OutputState : State 
+	public class OutputState : State 
     {
         public OutputState(IEnumerable<bool> args) : base(args) { }
 
@@ -21,7 +21,7 @@ namespace UntitledLogicGame.Workspace.Gates
         public OutputState(int len) : base(len) { }
     }
 
-    internal abstract class State
+	public abstract class State
     {
         internal int Length => values.Length;
 

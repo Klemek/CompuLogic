@@ -4,118 +4,124 @@ using System.Linq;
 
 namespace UntitledLogicGame.Workspace.Gates
 {
-    public abstract class GateDefinition
-    {
-        private static Dictionary<GateType, GateDefinition> Definitions;
-        internal static Dictionary<InputState, OutputState> EmptyTruthTable = new Dictionary<InputState, OutputState>();
-        public abstract string[] Inputs { get; }
-        public abstract string[] Outputs { get; }
-        internal abstract Dictionary<InputState, OutputState> TruthTable { get; }
-        public string Name { get; internal set; }
-        public bool HasState => false;
-        public GateDefinition New => (GateDefinition)GetType().GetConstructor(new Type[0]).Invoke(new object[0]);
+	public abstract class GateDefinition
+	{
+		// Static properties
+		private static Dictionary<GateType, GateDefinition> Definitions;
 
-        private static void LoadAll()
-        {
-            Definitions = new Dictionary<GateType, GateDefinition>();
-            foreach (var gateType in Enum.GetValues(typeof(GateType)).Cast<GateType>())
-            {
-                try
-                {
-                    var t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
-                    Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
-                    Definitions[gateType].Name = gateType.ToString();
-                }
-                catch
-                {
-                    Definitions[gateType] = (GateDefinition)typeof(NoneGate).GetConstructor(new Type[0]).Invoke(new object[0]);
-                    Definitions[gateType].Name = gateType.ToString();
-                }
-            }
-        }
+		// Public properties
+		public string Name { get; internal set; }
+		public bool HasState => false;
+		public Dictionary<InputState, OutputState> TruthTable { get; private set; } = new Dictionary<InputState, OutputState>();
 
-        public static GateDefinition Get(GateType gateType, Gate gate)
-        {
-            if (Definitions == null)
-                LoadAll();
+		// Herited properties
+		public abstract string[] Inputs { get; }
+		public abstract string[] Outputs { get; }
+		internal abstract Func<InputState, OutputState> Function { get; }
 
-            var definition = Definitions[gateType];
+		// Private properties
+		private GateDefinition New => (GateDefinition)GetType().GetConstructor(new Type[0]).Invoke(new object[0]);
 
-            foreach (var inputName in definition.Inputs)
-            {
-                if(!gate.InputAnchors.Any(a => a.Name.Equals(inputName)))
-                    throw new InvalidOperationException($"Gate has no {inputName} input anchor");
-            }
+		private static void LoadAll()
+		{
+			Definitions = new Dictionary<GateType, GateDefinition>();
+			foreach (var gateType in Enum.GetValues(typeof(GateType)).Cast<GateType>())
+			{
+				try
+				{
+					var t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
+					Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
+					Definitions[gateType].Name = gateType.ToString();
+				}
+				catch
+				{
+					Definitions[gateType] = (GateDefinition)typeof(NoneGate).GetConstructor(new Type[0]).Invoke(new object[0]);
+					Definitions[gateType].Name = gateType.ToString();
+				}
+			}
+		}
 
-            foreach (var outputName in definition.Outputs)
-            {
-                if (!gate.OutputAnchors.Any(a => a.Name.Equals(outputName)))
-                    throw new InvalidOperationException($"Gate has no {outputName} output anchor");
-            }
+		public static GateDefinition Get(GateType gateType, Gate gate)
+		{
+			if (Definitions == null)
+				LoadAll();
 
-            if (definition.HasState)
-                return definition.New;
-            else
-                return definition;
-        }
+			var definition = Definitions[gateType];
 
-        internal GateDefinition()
-        {
-            if (!HasState)
-            {
-                if (TruthTable.Count > 0)
-                {
-                    foreach (var key in TruthTable.Keys)
-                    {
-                        if (key.Length != Inputs.Length)
-                            throw new InvalidOperationException($"{GetType()} invalid inputs ({key})");
-                    }
-                    if (Inputs.Length != 0)
-                    {
-                        foreach (var key in Utils.AllBoolArrayValues(Inputs.Length).Select(b => new InputState(b)))
-                        {
-                            if (!TruthTable.Keys.Contains(key))
-                                throw new InvalidOperationException($"{GetType()} no outputs for ({key})");
-                            var values = TruthTable[key];
-                            if (values.Length != Outputs.Length)
-                                throw new InvalidOperationException($"{GetType()} invalid outputs for ({key})");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // Only test basic value
-                var sample = new InputState(Inputs.Length);
-                var output = Compute(sample);
-                if(output.Length != Outputs.Length)
-                    throw new InvalidOperationException($"{GetType()} invalid outputs for sample ({sample})");
-            }
-        }
+			foreach (var inputName in definition.Inputs)
+			{
+				if (!gate.InputAnchors.Any(a => a.Name.Equals(inputName)))
+					throw new InvalidOperationException($"Gate has no {inputName} input anchor");
+			}
 
-        public bool[] GetState(Gate gate)
-        {
-            return Inputs.Select(i => gate.InputAnchors.First(a => a.Name.Equals(i)).Activated).ToArray();
-        }
+			foreach (var outputName in definition.Outputs)
+			{
+				if (!gate.OutputAnchors.Any(a => a.Name.Equals(outputName)))
+					throw new InvalidOperationException($"Gate has no {outputName} output anchor");
+			}
 
-        public void Compute(Gate gate)
-        {
-            var input = new InputState(GetState(gate));
-            var output = Compute(input);
-            foreach (var outputAnchor in Outputs.Select((name, i) => new { i, name }))
-                gate.OutputAnchors.First(a => a.Name.Equals(outputAnchor.name)).Activated = output[outputAnchor.i];
-        }
+			if (definition.HasState)
+				return definition.New;
+			else
+				return definition;
+		}
 
-        internal OutputState Compute(InputState input)
-        {
-            if (TruthTable.Count > 0)
-            {
-                return TruthTable[input];
-            }
-            else
-            {
-                return new OutputState(0);
-            }
-        }
-    }
+		internal GateDefinition()
+		{
+			if (!HasState)
+			{
+				CreateTruthTable(Function);
+				if (TruthTable.Count > 0)
+				{
+					foreach (var key in TruthTable.Keys)
+					{
+						if (key.Length != Inputs.Length)
+							throw new InvalidOperationException($"{GetType()} invalid inputs ({key})");
+					}
+					if (Inputs.Length != 0)
+					{
+						foreach (var key in Utils.AllBoolArrayValues(Inputs.Length).Select(b => new InputState(b)))
+						{
+							if (!TruthTable.Keys.Contains(key))
+								throw new InvalidOperationException($"{GetType()} no outputs for ({key})");
+							var values = TruthTable[key];
+							if (values.Length != Outputs.Length)
+								throw new InvalidOperationException($"{GetType()} invalid outputs for ({key})");
+						}
+					}
+				}
+			}
+			else
+			{
+				// Only test basic value
+				var sample = new InputState(Inputs.Length);
+				var output = Function(sample);
+				if (output.Length != Outputs.Length)
+					throw new InvalidOperationException($"{GetType()} invalid outputs for sample ({sample})");
+			}
+		}
+
+		public bool[] GetState(Gate gate)
+		{
+			return Inputs.Select(i => gate.InputAnchors.First(a => a.Name.Equals(i)).Activated).ToArray();
+		}
+
+		public void Compute(Gate gate)
+		{
+			var input = new InputState(GetState(gate));
+			var output = HasState ? Function(input) : (TruthTable.Count > 0 ? TruthTable[input] : new OutputState(0));
+			foreach (var outputAnchor in Outputs.Select((name, i) => new { i, name }))
+				gate.OutputAnchors.First(a => a.Name.Equals(outputAnchor.name)).Activated = output[outputAnchor.i];
+		}
+
+		private void CreateTruthTable(Func<InputState, OutputState> function)
+		{
+			TruthTable = Utils.AllBoolArrayValues(Inputs.Length).ToDictionary(key => new InputState(key), key => function(new InputState(key)));
+		}
+	}
+
+	internal abstract class StateGateDefinition : GateDefinition
+	{
+		public new bool HasState => true;
+	}
 }

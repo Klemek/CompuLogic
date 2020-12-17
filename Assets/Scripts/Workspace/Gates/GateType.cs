@@ -26,18 +26,21 @@
         JKFlipFlop = 510,
         DFlipFlop = 520,
         TFlipFlop = 530,
-        // 600 - Combinational
+        // 600 - Arithmetic
         HalfAdd = 600,
         FullAdd = 610,
         HalSub = 620,
         FullSub = 630,
-        Mux = 640,
-        Demux = 650,
-        Enc = 660,
-        Dec = 670,
-		// 700 - Registers
-		SISO4b = 700,
-		SIPO4b = 710,
-		PIPO4b = 720,
+		// 700 - Data
+		Mux = 710,
+		Demux = 720,
+		Mux2b = 730,
+		Demux2b = 740,
+		Enc2b4b = 750,
+		Dec4b2b = 760,
+		// 800 - Registers
+		SISO4b = 800,
+		SIPO4b = 810,
+		PIPO4b = 820,
 	}
 }

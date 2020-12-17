@@ -23,6 +23,8 @@ namespace UntitledLogicGame
 
         public static bool[][] AllBoolArrayValues(int length)
         {
+			if (length == 0)
+				return new bool[0][];
             var count = (int)Math.Pow(2, length);
             return new ArrayList[count].Select((v, i) => i.ToBoolArray(length)).ToArray();
         }
