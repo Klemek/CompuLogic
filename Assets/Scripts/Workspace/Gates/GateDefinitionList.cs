@@ -141,9 +141,9 @@ namespace UntitledLogicGame.Workspace.Gates
         {
             var s = input[0];
             var r = input[1];
-            if (r)
+            if (r) // reset
                 _q = false;
-            else if (s)
+            else if (s) // set
                 _q = true;
             return new OutputState(_q, !_q);
         }
@@ -163,11 +163,11 @@ namespace UntitledLogicGame.Workspace.Gates
         {
             var j = input[0];
             var k = input[1];
-            if (k && j)
+            if (k && j) // flip
                 _q = !_q;
-            else if (k)
+            else if (k) // reset
                 _q = false;
-            else if (j)
+            else if (j) // set
                 _q = true;
             return new OutputState(_q, !_q);
         }
@@ -187,7 +187,7 @@ namespace UntitledLogicGame.Workspace.Gates
         {
             var d = input[0];
             var e = input[1];
-            if (e)
+            if (e) // set
                 _q = d;
             return new OutputState(_q, !_q);
         }
@@ -214,9 +214,9 @@ namespace UntitledLogicGame.Workspace.Gates
             var r = input[1];
             var clk = input[2];
             if (clk && !_lastClk) // rising edge
-                if (r)
+                if (r) // reset
                     _q = false;
-                else if (s)
+                else if (s) // set
                     _q = true;
             _lastClk = clk;
             return new OutputState(_q, !_q);
@@ -240,11 +240,11 @@ namespace UntitledLogicGame.Workspace.Gates
             var k = input[1];
             var clk = input[2];
             if (clk && !_lastClk) // rising edge
-                if (k && j)
+                if (k && j) // flip
                     _q = !_q;
-                else if (k)
+                else if (k) // reset
                     _q = false;
-                else if (j)
+                else if (j) // set
                     _q = true;
             _lastClk = clk;
             return new OutputState(_q, !_q);
@@ -289,7 +289,7 @@ namespace UntitledLogicGame.Workspace.Gates
             var t = input[0];
             var clk = input[1];
             if (clk && !_lastClk) // rising edge
-                if (t)
+                if (t) // flip
                     _q = !_q;
             _lastClk = clk;
             return new OutputState(_q, !_q);
