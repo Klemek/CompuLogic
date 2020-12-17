@@ -25,6 +25,15 @@
         SRFlipFlop = 500,
         JKFlipFlop = 510,
         DFlipFlop = 520,
-        TFlipFlop = 530
+        TFlipFlop = 530,
+        // 600 - Combinational
+        HalfAdd = 600,
+        FullAdd = 610,
+        HalSub = 620,
+        FullSub = 630,
+        Mux = 740,
+        Demux = 750,
+        Enc = 760,
+        Dec = 770
     }
 }
