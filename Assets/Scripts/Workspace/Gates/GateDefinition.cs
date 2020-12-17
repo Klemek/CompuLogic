@@ -27,17 +27,9 @@ namespace UntitledLogicGame.Workspace.Gates
 			Definitions = new Dictionary<GateType, GateDefinition>();
 			foreach (var gateType in Enum.GetValues(typeof(GateType)).Cast<GateType>())
 			{
-				try
-				{
-					var t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
-					Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
-					Definitions[gateType].Name = gateType.ToString();
-				}
-				catch
-				{
-					Definitions[gateType] = (GateDefinition)typeof(NoneGate).GetConstructor(new Type[0]).Invoke(new object[0]);
-					Definitions[gateType].Name = gateType.ToString();
-				}
+				var t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
+				Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
+				Definitions[gateType].Name = gateType.ToString();
 			}
 		}
 

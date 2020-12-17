@@ -17,11 +17,15 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 100 - Special
 
+	internal class INGate : NoneGate { }
+
+	internal class OUTGate : NoneGate { }
+
 	#endregion
 
 	#region 200 - Basic
 
-	internal class BufferGate : GateDefinition
+	internal class BUFGate : GateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -52,10 +56,6 @@ namespace UntitledLogicGame.Workspace.Gates
 
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(input[0] ^ input[1]);
 	}
-
-	#endregion
-
-	#region 300 - Inverted Basic
 
 	internal class NOTGate : GateDefinition
 	{
@@ -91,7 +91,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#endregion
 
-	#region 400 - Latches
+	#region 300 - Latches
 
 	internal class SRLatchGate : StateGateDefinition
 	{
@@ -155,7 +155,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#endregion
 
-	#region 500 - Flip-Flops
+	#region 400 - Flip-Flops
 
 	internal class SRFlipFlopGate : StateGateDefinition
 	{
@@ -250,7 +250,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#endregion
 
-	#region 600 - Arithmetic
+	#region 500 - Arithmetic
 
 	internal class HalfAddGate : GateDefinition
 	{
@@ -330,7 +330,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#endregion
 
-	#region 700 - Data
+	#region 600 - Data
 
 	internal class MuxGate : GateDefinition
 	{
@@ -459,7 +459,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#endregion
 
-	#region 800 - Registers
+	#region 700 - Registers
 
 	internal class SISO4bGate : StateGateDefinition
 	{
@@ -542,6 +542,80 @@ namespace UntitledLogicGame.Workspace.Gates
 				_q2 = d2;
 				_q1 = d1;
 				_q0 = d0;
+			}
+			_lastClk = clk;
+			return new OutputState(_q0, _q1, _q2, _q3);
+		};
+	}
+
+	#endregion
+
+	#region 800 - Counters
+
+	internal class Counter2bGate : StateGateDefinition
+	{
+		public new string Name => "2bits Count.";
+		public override string[] Inputs { get; } = new string[] { "CLK", "RST" };
+		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁" };
+
+		private bool _q0;
+		private bool _q1;
+		private bool _lastClk;
+
+		internal override Func<InputState, OutputState> Function => (input) =>
+		{
+			var clk = input[0];
+			var rst = input[1];
+			if (clk && !_lastClk) // rising edge
+			{
+				if (rst)
+				{
+					_q0 = false;
+					_q1 = false;
+				}
+				else
+				{
+					_q1 = _q0 ^ _q1;
+					_q0 = !_q0;
+				}
+			}
+			_lastClk = clk;
+			return new OutputState(_q0, _q1);
+		};
+	}
+
+	internal class Counter4bGate : StateGateDefinition
+	{
+		public new string Name => "4bits Count.";
+		public override string[] Inputs { get; } = new string[] { "CLK", "RST" };
+		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁", "Q₂", "Q₃" };
+
+		private bool _q0;
+		private bool _q1;
+		private bool _q2;
+		private bool _q3;
+		private bool _lastClk;
+
+		internal override Func<InputState, OutputState> Function => (input) =>
+		{
+			var clk = input[0];
+			var rst = input[1];
+			if (clk && !_lastClk) // rising edge
+			{
+				if (rst)
+				{
+					_q0 = false;
+					_q1 = false;
+					_q2 = false;
+					_q3 = false;
+				}
+				else
+				{
+					_q3 = (_q3 || _q2 && _q1 && _q0) && (!_q3 && !_q2 && !_q1 && !_q0);
+					_q2 = (_q2 || _q1 && _q0) && (!_q2 && !_q1 && !_q0);
+					_q1 = _q0 ^ _q1;
+					_q0 = !_q0;
+				}
 			}
 			_lastClk = clk;
 			return new OutputState(_q0, _q1, _q2, _q3);

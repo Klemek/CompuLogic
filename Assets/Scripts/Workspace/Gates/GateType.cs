@@ -12,35 +12,37 @@
         AND = 210,
         OR = 220,
         XOR = 230,
-        // 300 - Inverted Basic
-        NOT = 300,
-        NAND = 310,
-        NOR = 320,
-        XNOR = 330,
-        // 400 - Latches
-        SRLatch = 400,
-        JKLatch = 410,
-        DLatch = 420,
+		NOT = 240,
+		NAND = 250,
+		NOR = 260,
+		XNOR = 270,
+		// 300 - Latches
+		SRLatch = 300,
+        JKLatch = 310,
+        DLatch = 320,
         // 500 - Flip-Flops
-        SRFlipFlop = 500,
-        JKFlipFlop = 510,
-        DFlipFlop = 520,
-        TFlipFlop = 530,
-        // 600 - Arithmetic
-        HalfAdd = 600,
-        FullAdd = 610,
-        HalSub = 620,
-        FullSub = 630,
-		// 700 - Data
-		Mux = 710,
-		Demux = 720,
-		Mux2b = 730,
-		Demux2b = 740,
-		Enc2b4b = 750,
-		Dec4b2b = 760,
-		// 800 - Registers
-		SISO4b = 800,
-		SIPO4b = 810,
-		PIPO4b = 820,
+        SRFlipFlop = 400,
+        JKFlipFlop = 410,
+        DFlipFlop = 420,
+        TFlipFlop = 430,
+        // 500 - Arithmetic
+        HalfAdd = 500,
+        FullAdd = 510,
+        HalSub = 520,
+        FullSub = 530,
+		// 600 - Data
+		Mux = 610,
+		Demux = 620,
+		Mux2b = 630,
+		Demux2b = 640,
+		Enc2b4b = 650,
+		Dec4b2b = 660,
+		// 700 - Registers
+		SISO4b = 700,
+		SIPO4b = 710,
+		PIPO4b = 720,
+		// 800 - Counters
+		Counter2b = 800,
+		Counter4b = 810
 	}
 }
