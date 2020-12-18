@@ -1,5 +1,4 @@
 TODO
--(2) gate bar sub categories
 -(2) named anchors (dezoom hide ?)
 -(3) clocks (1Hz, 5Hz, 10Hz, etc.)
 -(3) generic rect gates

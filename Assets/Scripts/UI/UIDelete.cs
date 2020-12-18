@@ -8,8 +8,9 @@ namespace UntitledLogicGame.UI
 {
     public class UIDelete : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        #region Unity Properties
+		#region Unity Properties
 
+		public SVGImage closedImage;
         public SVGImage openImage;
 
         #endregion
@@ -20,39 +21,47 @@ namespace UntitledLogicGame.UI
 
         #region Private Properties
 
+		private SVGImage Image
+		{
+			get
+			{
+				if(_image == null)
+					_image = GetComponentInChildren<SVGImage>();
+				return _image;
+			}
+		}
+
         private SVGImage _image;
-        private Sprite _closedSprite;
 
         #endregion
 
         #region Unity Methods
 
-        private void Start()
-        {
-            _image = GetComponent<SVGImage>();
-            _closedSprite = _image.sprite;
-        }
-
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _image.sprite = openImage.sprite;
+			Image.sprite = openImage.sprite;
             PointerManager.Instance.DeleteOnRelease = true;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _image.sprite = _closedSprite;
+			Image.sprite = closedImage.sprite;
             PointerManager.Instance.DeleteOnRelease = false;
         }
 
-        #endregion
+		private void OnEnable()
+		{
+			Image.sprite = closedImage.sprite;
+		}
 
-        #region Public Methods
+		#endregion
 
-        #endregion
+		#region Public Methods
 
-        #region Private Methods
+		#endregion
 
-        #endregion
-    }
+		#region Private Methods
+
+		#endregion
+	}
 }

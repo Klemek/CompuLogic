@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VectorGraphics;
@@ -9,47 +10,33 @@ using UntitledLogicGame.Workspace;
 
 namespace UntitledLogicGame.UI
 {
-    public class UIGate : MonoBehaviour, IPointerDownHandler
-    {
-        #region Unity Properties
+	public class UIGate : UIToolbarButton
+	{
+		#region Unity Properties
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public Gate GatePrefab 
-        {
-            set
-            {
-                _gatePrefab = value;
-                var sprite = _gatePrefab.GetComponentInChildren<SpriteRenderer>().sprite;
-                var subimage = GetComponentInChildren<SVGImage>();
-                subimage.sprite = sprite;
-                subimage.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * sprite.rect.width / 700f); // TODO get max width from UIManager
-                gameObject.name = "UI_" + _gatePrefab.Definition.Name;
-                GetComponentInChildren<TextMeshProUGUI>().text = _gatePrefab.Definition.Name;
-            }
-        }
+		public Gate GatePrefab
+		{
+			set
+			{
+				var sprite = value.GetComponentInChildren<SpriteRenderer>().sprite;
+				Image.sprite = sprite;
+				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * sprite.rect.width / 700f); // TODO get max width from UIManager
+				gameObject.name = "UI_" + value.Definition.Name;
+				Text.text = value.Definition.Name;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Properties
-
-        private Gate _gatePrefab;
+		#region Private Properties
 
         #endregion
 
         #region Unity Methods
-
-        private void Start()
-        {
-            
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            GameManager.Instance.CreateGate(_gatePrefab);
-        }
 
         #endregion
 

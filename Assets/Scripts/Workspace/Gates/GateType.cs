@@ -3,8 +3,8 @@
     public enum GateType
     {
         // 000 - Technical
-        NONE = 000,
-        // 100 - Special
+        None = 000,
+        // 100 - I/O
         IN = 100,
         OUT = 110,
         // 200 - Basic
@@ -28,7 +28,7 @@
         // 500 - Arithmetic
         HalfAdd = 500,
         FullAdd = 510,
-        HalSub = 520,
+        HalfSub = 520,
         FullSub = 530,
 		// 600 - Data
 		Mux = 610,
@@ -44,5 +44,18 @@
 		// 800 - Counters
 		Counter2b = 800,
 		Counter4b = 810
+	}
+
+	public enum GateCategory
+	{
+		None = 00,
+		IO = 01,
+		Basic = 02,
+		Latches = 03,
+		FlipFlops = 04,
+		Arithmetic = 05,
+		Data = 06,
+		Registers = 07,
+		Counters = 08
 	}
 }

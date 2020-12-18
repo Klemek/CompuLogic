@@ -8,9 +8,18 @@ namespace UntitledLogicGame.Workspace.Gates
 	{
 		// Static properties
 		private static Dictionary<GateType, GateDefinition> Definitions;
+		public static Dictionary<GateCategory, List<GateType>> TypeCategoryList => 
+			Enum.GetValues(typeof(GateCategory)).Cast<GateCategory>()
+			.ToDictionary(
+				c => c, 
+				c => Enum.GetValues(typeof(GateType)).Cast<GateType>()
+				.Where(t => (GateCategory)((int)t / 100) == c).ToList()
+			);
 
 		// Public properties
-		public string Name { get; internal set; }
+		public GateType Type { get; private set; }
+		public GateCategory Category => (GateCategory)((int)Type / 100);
+		public string Name => Type.ToString();
 		public bool HasState => false;
 		public Dictionary<InputState, OutputState> TruthTable { get; private set; } = new Dictionary<InputState, OutputState>();
 
@@ -27,9 +36,9 @@ namespace UntitledLogicGame.Workspace.Gates
 			Definitions = new Dictionary<GateType, GateDefinition>();
 			foreach (var gateType in Enum.GetValues(typeof(GateType)).Cast<GateType>())
 			{
-				var t = Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
+				var t = System.Type.GetType($"{typeof(GateDefinition).Namespace}.{gateType}Gate", true);
 				Definitions[gateType] = (GateDefinition)t.GetConstructor(new Type[0]).Invoke(new object[0]);
-				Definitions[gateType].Name = gateType.ToString();
+				Definitions[gateType].Type = gateType;
 			}
 		}
 
