@@ -52,13 +52,13 @@ namespace UntitledLogicGame.Workspace.Gates
 			foreach (var inputName in definition.Inputs)
 			{
 				if (!gate.InputAnchors.Any(a => a.Name.Equals(inputName)))
-					throw new InvalidOperationException($"Gate has no {inputName} input anchor");
+					throw new InvalidOperationException($"Gate {gateType} has no {inputName} input anchor");
 			}
 
 			foreach (var outputName in definition.Outputs)
 			{
 				if (!gate.OutputAnchors.Any(a => a.Name.Equals(outputName)))
-					throw new InvalidOperationException($"Gate has no {outputName} output anchor");
+					throw new InvalidOperationException($"Gate {gateType} has no {outputName} output anchor");
 			}
 
 			if (definition.HasState)

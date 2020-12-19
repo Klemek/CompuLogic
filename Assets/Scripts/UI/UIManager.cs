@@ -47,7 +47,7 @@ namespace UntitledLogicGame.UI
 
 		private IEnumerator Start()
 		{
-			yield return new WaitUntil(() => GameManager.Instance != null);
+			yield return new WaitUntil(() => GameManager.Instance != null && GameManager.Instance.GatePrefabs == null);
 			CreateGateBar();
 			UpdateUI();
 		}
@@ -126,7 +126,8 @@ namespace UntitledLogicGame.UI
 						var uiGate = Instantiate(UIGatePrefab, parent.transform);
 						uiGate.GatePrefab = gatePrefab;
 						uiGate.Rect.anchoredPosition = new Vector2(currentPos, 0);
-						uiGate.OnClick = () => {
+						uiGate.OnClick = () =>
+						{
 							GameManager.Instance.CreateGate(gatePrefab);
 						};
 						currentPos += 100f;

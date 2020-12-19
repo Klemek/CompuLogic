@@ -15,12 +15,21 @@ namespace UntitledLogicGame.Workspace
 		#region Public Properties
 
 		public bool Hovering { get; internal set; }
+		public SpriteRenderer Renderer {
+			get
+			{
+			 if (_renderer == null)
+				_renderer = GetComponentInChildren<SpriteRenderer>();
+			 return _renderer;
+			}
+		}
 
 		#endregion
 
 		#region Private Properties
 
 		private Gate _gate;
+		private SpriteRenderer _renderer;
 
 		#endregion
 
@@ -47,6 +56,12 @@ namespace UntitledLogicGame.Workspace
 		#endregion
 
 		#region Public Methods
+
+		public void ResetCollider()
+		{
+			Destroy(GetComponent<PolygonCollider2D>());
+			gameObject.AddComponent<PolygonCollider2D>();
+		}
 
 		#endregion
 

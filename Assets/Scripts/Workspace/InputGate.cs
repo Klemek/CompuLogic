@@ -23,7 +23,7 @@ namespace UntitledLogicGame.Workspace
 			get
 			{
 			 if (_outputAnchor == null)
-				_outputAnchor = Anchors.First(g => g.Name == "Q");
+				_outputAnchor = Anchors.FirstOrDefault(g => g.Name == "Q");
 			 return _outputAnchor;
 			}
 		}
@@ -55,8 +55,8 @@ namespace UntitledLogicGame.Workspace
 		{
 			if ((Sprite.Hovering || OutputAnchor.Hovering) && PointerManager.Instance.DoubleClick())
 			{
-			 State = !State;
-			 OutputAnchor.Activated = State;
+				State = !State;
+				OutputAnchor.Activated = State;
 			}
 		}
 

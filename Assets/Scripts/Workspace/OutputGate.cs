@@ -28,7 +28,7 @@ namespace UntitledLogicGame.Workspace
 			get
 			{
 			 if (_inputAnchor == null)
-				_inputAnchor = Anchors.First(g => g.Name == "A");
+				_inputAnchor = Anchors.FirstOrDefault(g => g.Name == "A");
 			 return _inputAnchor;
 			}
 		}

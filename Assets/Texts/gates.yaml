@@ -1,0 +1,94 @@
+list:
+  100:
+    skin: input
+    width: 3
+    height: 3
+    class: InputGate
+    output:
+      - Q 1.5 1.5 E big
+  110:
+    skin: output
+    width: 3
+    height: 3
+    class: OutputGate
+    input:
+      - A 1.5 1.5 W big
+  200:
+    skin: buffer
+    width: 3
+    height: 3
+    input:
+      - A 0.5 1.5 W
+    output:
+      - Q 2.5 1.5 E
+  210:
+    skin: and
+    width: 5
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 4.5 2.5 E
+  220:
+    skin: or
+    width: 5
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 4.5 2.5 E
+  230:
+    skin: xor
+    width: 6
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 5.5 2.5 E
+  230:
+    skin: xor
+    width: 6
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 5.5 2.5 E
+  240:
+    skin: not
+    width: 4
+    height: 3
+    input:
+      - A 0.5 1.5 W
+    output:
+      - Q 3.5 1.5 E
+  250:
+    skin: nand
+    width: 6
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 5.5 2.5 E
+  260:
+    skin: nor
+    width: 6
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 5.5 2.5 E
+  270:
+    skin: xnor
+    width: 7
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - Q 6.5 2.5 E

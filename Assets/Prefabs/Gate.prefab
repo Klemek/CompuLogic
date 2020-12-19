@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2070848596161447923}
   - component: {fileID: 2637797866570093762}
   m_Layer: 0
-  m_Name: base gate
+  m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b336fb04307cae45953d977c01c393d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasState: 0
   GateType: 0
 --- !u!1 &626605489606801230
 GameObject:

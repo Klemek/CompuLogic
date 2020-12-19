@@ -519,20 +519,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CablePrefab: {fileID: -8717160041275297970, guid: c5518c2f8bda4d746a830a3f3e01330c, type: 3}
+  GatePrefab: {fileID: 2637797866570093762, guid: e13798a14679ee74fa71d11caea77e78, type: 3}
+  AnchorPrefab: {fileID: -7307756874029176930, guid: d2ad1e1266d8af64ca87541a40be7e9f, type: 3}
+  BigAnchorPrefab: {fileID: 8472053189531363812, guid: 6c0b80628f6890647b34ac0877a018ea, type: 3}
   GatesGroup: {fileID: 297330684}
   CablesGroup: {fileID: 1929026276}
   DeadColor: {r: 0, g: 0.20240787, b: 0.262, a: 1}
   ActivatedColor: {r: 0, g: 0.7725491, b: 1, a: 1}
-  GatePrefabs:
-  - {fileID: 2608629621584006415, guid: 4e410a1e5a455034f8c0c608cca0f50d, type: 3}
-  - {fileID: 8526475217245682975, guid: 992b79e7e4c2e1a4f873c64c51e9f52b, type: 3}
-  - {fileID: 395496744302543944, guid: 7f0ed90de4f8dcf4cb3b8bd1f47a6c55, type: 3}
-  - {fileID: 5414015581782372340, guid: f9d4ead6b60b0ac4ca6d566c674c515d, type: 3}
-  - {fileID: 1880784449839238515, guid: 426ccfa3b75c9644c80250677d1089f6, type: 3}
-  - {fileID: 1598869823234492652, guid: e5170b18be775644e8f56c93d402a270, type: 3}
-  - {fileID: 6236349114868766289, guid: b96d09631ef08604ea83f8843ce8563e, type: 3}
-  - {fileID: 6979581962575144672, guid: 9993fd3a92f426c40a9eb291a8224b89, type: 3}
-  - {fileID: 3834481072508960832, guid: 04e2cfd7b9447984d870b9a310e41070, type: 3}
+  GateBook: {fileID: 4900000, guid: b1a9b9bb9f39fef44b3e7b76dea70d42, type: 3}
+  GateSprites:
+  - {fileID: 3286163911610860551, guid: d657d34db99769448a22a568d7c15d3f, type: 3}
+  - {fileID: 3286163911610860551, guid: 9b1c4145c6340064297ab349609dd56c, type: 3}
+  - {fileID: 3286163911610860551, guid: f07dabfc64de02443a6df7363e4f1171, type: 3}
+  - {fileID: 3286163911610860551, guid: dd1159e4e096fd24695274a28f36162e, type: 3}
+  - {fileID: 3286163911610860551, guid: ce1725433e0189245aff741879e37f27, type: 3}
+  - {fileID: 3286163911610860551, guid: a60088ecfdbde3c41947941bd7acaa78, type: 3}
+  - {fileID: 3286163911610860551, guid: cea5d34f9806f3e4fb9a8d0a9d9b9ab5, type: 3}
+  - {fileID: 3286163911610860551, guid: 1cd7455285f8d7046ad9fdc6cd1feb1c, type: 3}
+  - {fileID: 3286163911610860551, guid: fc21fadbf9000bb49943d069602fe83c, type: 3}
+  - {fileID: 3286163911610860551, guid: d05de65acea07bc4aaa193a16bb73bd0, type: 3}
 --- !u!4 &535412053
 Transform:
   m_ObjectHideFlags: 0

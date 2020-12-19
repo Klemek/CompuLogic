@@ -84,10 +84,14 @@ namespace UntitledLogicGame.Workspace
 
 		private void OnDestroy()
 		{
-			foreach(var cable in Cables)
+			if(Cables != null)
 			{
-			 Destroy(cable.gameObject);
+				foreach(var cable in Cables)
+				{
+				 Destroy(cable.gameObject);
+				}
 			}
+			
 		}
 
 		#endregion
