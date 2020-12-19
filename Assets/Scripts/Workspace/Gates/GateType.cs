@@ -1,35 +1,35 @@
 ﻿namespace UntitledLogicGame.Workspace.Gates
 {
-    public enum GateType
-    {
-        // 000 - Technical
-        None = 000,
-        // 100 - I/O
-        IN = 100,
-        OUT = 110,
-        // 200 - Basic
-        BUF = 200,
-        AND = 210,
-        OR = 220,
-        XOR = 230,
+	public enum GateType
+	{
+		// 000 - Technical
+		None = 000,
+		// 100 - I/O
+		IN = 100,
+		OUT = 110,
+		// 200 - Basic
+		BUF = 200,
+		AND = 210,
+		OR = 220,
+		XOR = 230,
 		NOT = 240,
 		NAND = 250,
 		NOR = 260,
 		XNOR = 270,
 		// 300 - Latches
 		SRLatch = 300,
-        JKLatch = 310,
-        DLatch = 320,
-        // 500 - Flip-Flops
-        SRFlipFlop = 400,
-        JKFlipFlop = 410,
-        DFlipFlop = 420,
-        TFlipFlop = 430,
-        // 500 - Arithmetic
-        HalfAdd = 500,
-        FullAdd = 510,
-        HalfSub = 520,
-        FullSub = 530,
+		JKLatch = 310,
+		DLatch = 320,
+		// 500 - Flip-Flops
+		SRFlipFlop = 400,
+		JKFlipFlop = 410,
+		DFlipFlop = 420,
+		TFlipFlop = 430,
+		// 500 - Arithmetic
+		HalfAdd = 500,
+		FullAdd = 510,
+		HalfSub = 520,
+		FullSub = 530,
 		// 600 - Data
 		Mux = 610,
 		Demux = 620,

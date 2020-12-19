@@ -5,53 +5,53 @@ using UnityEngine;
 
 namespace UntitledLogicGame.Workspace
 {
-    public class OutputGate : Gate
-    {
-        #region Unity Properties
+	public class OutputGate : Gate
+	{
+		#region Unity Properties
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public bool State {
-            get
-            {
-                return InputAnchor.Activated;
-            }
-        }
+		public bool State {
+			get
+			{
+			 return InputAnchor.Activated;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private Anchor InputAnchor {
-            get
-            {
-                if (_inputAnchor == null)
-                    _inputAnchor = Anchors.First(g => g.Name == "A");
-                return _inputAnchor;
-            }
-        }
-        private Anchor _inputAnchor;
+		private Anchor InputAnchor {
+			get
+			{
+			 if (_inputAnchor == null)
+				_inputAnchor = Anchors.First(g => g.Name == "A");
+			 return _inputAnchor;
+			}
+		}
+		private Anchor _inputAnchor;
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        private void Start()
-        {
-            Utils.RandomName("Output", gameObject);
-        }
+		private void Start()
+		{
+			Utils.RandomName("Output", gameObject);
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        #endregion
-    }
+		#endregion
+	}
 
 }

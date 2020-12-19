@@ -27,7 +27,7 @@ uniform fixed4 		_ReflectFaceColor;			// RGB intensity
 uniform fixed4		_ReflectOutlineColor;
 //uniform float		_EnvTiltX;					// v[-1, 1]
 //uniform float		_EnvTiltY;					// v[-1, 1]
-uniform float3      _EnvMatrixRotation;
+uniform float3	 _EnvMatrixRotation;
 uniform float4x4	_EnvMatrix;
 
 uniform fixed4		_SpecularColor;				// RGB intensity

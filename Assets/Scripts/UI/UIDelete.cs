@@ -6,20 +6,20 @@ using UnityEngine.EventSystems;
 
 namespace UntitledLogicGame.UI
 {
-    public class UIDelete : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-    {
+	public class UIDelete : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	{
 		#region Unity Properties
 
 		public SVGImage closedImage;
-        public SVGImage openImage;
+		public SVGImage openImage;
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
 		private SVGImage Image
 		{
@@ -31,23 +31,23 @@ namespace UntitledLogicGame.UI
 			}
 		}
 
-        private SVGImage _image;
+		private SVGImage _image;
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        public void OnPointerEnter(PointerEventData eventData)
-        {
+		public void OnPointerEnter(PointerEventData eventData)
+		{
 			Image.sprite = openImage.sprite;
-            PointerManager.Instance.DeleteOnRelease = true;
-        }
+			PointerManager.Instance.DeleteOnRelease = true;
+		}
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
+		public void OnPointerExit(PointerEventData eventData)
+		{
 			Image.sprite = closedImage.sprite;
-            PointerManager.Instance.DeleteOnRelease = false;
-        }
+			PointerManager.Instance.DeleteOnRelease = false;
+		}
 
 		private void OnEnable()
 		{

@@ -6,106 +6,106 @@ using UntitledLogicGame.Workspace.Gates;
 
 namespace UntitledLogicGame.Workspace
 {
-    public class Gate : MonoBehaviour
-    {
-        #region Unity Properties
+	public class Gate : MonoBehaviour
+	{
+		#region Unity Properties
 
-        public GateType GateType;
+		public GateType GateType;
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public IEnumerable<Anchor> Anchors 
-        {
-            get
-            {
-                if(_anchors == null)
-                    _anchors = GetComponentsInChildren<Anchor>().ToList();
-                return _anchors;
-            }
-        }
-        public IEnumerable<Anchor> InputAnchors => Anchors.Where(a => a.IsInput);
-        public IEnumerable<Anchor> OutputAnchors => Anchors.Where(a => !a.IsInput);
-        public BoxCollider2D Box {
-            get
-            {
-                if (_box == null)
-                    _box = GetComponentInChildren<BoxCollider2D>();
-                return _box;
-            }
-        }
-        public GateSprite Sprite
-        {
-            get
-            {
-                if(_sprite == null)
-                    _sprite = GetComponentInChildren<GateSprite>();
-                return _sprite;
-            }
-        }
-        public GateDefinition Definition
-        {
-            get
-            {
-                if(_definition == null)
-                    _definition = GateDefinition.Get(GateType, this);
-                return _definition;
-            }
-        }
+		public IEnumerable<Anchor> Anchors 
+		{
+			get
+			{
+			 if(_anchors == null)
+				_anchors = GetComponentsInChildren<Anchor>().ToList();
+			 return _anchors;
+			}
+		}
+		public IEnumerable<Anchor> InputAnchors => Anchors.Where(a => a.IsInput);
+		public IEnumerable<Anchor> OutputAnchors => Anchors.Where(a => !a.IsInput);
+		public BoxCollider2D Box {
+			get
+			{
+			 if (_box == null)
+				_box = GetComponentInChildren<BoxCollider2D>();
+			 return _box;
+			}
+		}
+		public GateSprite Sprite
+		{
+			get
+			{
+			 if(_sprite == null)
+				_sprite = GetComponentInChildren<GateSprite>();
+			 return _sprite;
+			}
+		}
+		public GateDefinition Definition
+		{
+			get
+			{
+			 if(_definition == null)
+				_definition = GateDefinition.Get(GateType, this);
+			 return _definition;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private IEnumerable<Anchor> _anchors;
-        private GateDefinition _definition;
-        private int _lastState = -1;
-        private BoxCollider2D _box;
-        private GateSprite _sprite;
+		private IEnumerable<Anchor> _anchors;
+		private GateDefinition _definition;
+		private int _lastState = -1;
+		private BoxCollider2D _box;
+		private GateSprite _sprite;
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        private void Start()
-        {
-            Utils.RandomName(Definition.Name, gameObject);
-        }
+		private void Start()
+		{
+			Utils.RandomName(Definition.Name, gameObject);
+		}
 
-        // Update is called once per frame
-        private void Update()
-        {
-            UpdateState();
-        }
+		// Update is called once per frame
+		private void Update()
+		{
+			UpdateState();
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        public bool HasInputAnchor(Anchor target)
-        {
-            return !Definition.HasState && (
-                    InputAnchors.Contains(target) ||
-                    InputAnchors.Any(a => a.HasInputAnchor(target))
-                );
-        }
+		public bool HasInputAnchor(Anchor target)
+		{
+			return !Definition.HasState && (
+				InputAnchors.Contains(target) ||
+				InputAnchors.Any(a => a.HasInputAnchor(target))
+			 );
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void UpdateState()
-        {
-            var state = Definition.GetState(this).ToInt();
-            if (state != _lastState)
-            {
-                Definition.Compute(this);
-                _lastState = state;
-            }
-        }
+		private void UpdateState()
+		{
+			var state = Definition.GetState(this).ToInt();
+			if (state != _lastState)
+			{
+			 Definition.Compute(this);
+			 _lastState = state;
+			}
+		}
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

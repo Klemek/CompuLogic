@@ -34,18 +34,18 @@ namespace UntitledLogicGame.UI
 
 		#region Private Properties
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        #endregion
-    }
+		#endregion
+	}
 }

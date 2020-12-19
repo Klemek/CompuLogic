@@ -7,16 +7,16 @@ using UntitledLogicGame.Workspace.Gates;
 
 namespace UntitledLogicGame.UI
 {
-    public class UIManager : MonoBehaviour
-    {
-        #region Unity Properties
+	public class UIManager : MonoBehaviour
+	{
+		#region Unity Properties
 
-        [Header("Components")]
-        public GameObject GateBar;
-        public GameObject MovingBar;
+		[Header("Components")]
+		public GameObject GateBar;
+		public GameObject MovingBar;
 
-        [Header("Prefabs")]
-        public UIGate UIGatePrefab;
+		[Header("Prefabs")]
+		public UIGate UIGatePrefab;
 		public UIFolder UIFolderPrefab;
 
 		#endregion
@@ -33,11 +33,11 @@ namespace UntitledLogicGame.UI
 			}
 		}
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private bool _lastMouseInteracting;
+		private bool _lastMouseInteracting;
 		private GateCategory _gateBarState;
 		private Dictionary<GateCategory, GameObject> _gateBarSateList;
 
@@ -46,35 +46,35 @@ namespace UntitledLogicGame.UI
 		#region Unity Methods
 
 		private IEnumerator Start()
-        {
-            yield return new WaitUntil(() => GameManager.Instance != null);
+		{
+			yield return new WaitUntil(() => GameManager.Instance != null);
 			CreateGateBar();
 			UpdateUI();
 		}
 
-        private void FixedUpdate()
-        {
-            UpdateUI();
+		private void FixedUpdate()
+		{
+			UpdateUI();
 		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void UpdateUI()
-        {
-            if (PointerManager.Instance.Interacting != _lastMouseInteracting)
-            {
-                //TODO animate go down
-                GateBar.SetActive(!PointerManager.Instance.Interacting);
-                MovingBar.SetActive(PointerManager.Instance.MovingObject);
-                _lastMouseInteracting = PointerManager.Instance.Interacting;
-            }
-        }
+		private void UpdateUI()
+		{
+			if (PointerManager.Instance.Interacting != _lastMouseInteracting)
+			{
+			 //TODO animate go down
+			 GateBar.SetActive(!PointerManager.Instance.Interacting);
+			 MovingBar.SetActive(PointerManager.Instance.MovingObject);
+			 _lastMouseInteracting = PointerManager.Instance.Interacting;
+			}
+		}
 
 		private void CreateGateBar()
 		{
@@ -144,6 +144,6 @@ namespace UntitledLogicGame.UI
 				_gateBarSateList[category].SetActive(category == GateBarState);
 		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

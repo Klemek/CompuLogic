@@ -5,62 +5,62 @@ using UnityEngine;
 
 namespace UntitledLogicGame.Workspace
 {
-    public class InputGate : Gate
-    {
-        #region Unity Properties
+	public class InputGate : Gate
+	{
+		#region Unity Properties
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public bool State { get; set; }
+		public bool State { get; set; }
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private Anchor OutputAnchor {
-            get
-            {
-                if (_outputAnchor == null)
-                    _outputAnchor = Anchors.First(g => g.Name == "Q");
-                return _outputAnchor;
-            }
-        }
-        private Anchor _outputAnchor;
+		private Anchor OutputAnchor {
+			get
+			{
+			 if (_outputAnchor == null)
+				_outputAnchor = Anchors.First(g => g.Name == "Q");
+			 return _outputAnchor;
+			}
+		}
+		private Anchor _outputAnchor;
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        private void Start()
-        {
-            Utils.RandomName("Input", gameObject);
-        }
+		private void Start()
+		{
+			Utils.RandomName("Input", gameObject);
+		}
 
-        private void Update()
-        {
-            UpdateState();
-        }
+		private void Update()
+		{
+			UpdateState();
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        private void UpdateState()
-        {
-            if ((Sprite.Hovering || OutputAnchor.Hovering) && PointerManager.Instance.DoubleClick())
-            {
-                State = !State;
-                OutputAnchor.Activated = State;
-            }
-        }
+		private void UpdateState()
+		{
+			if ((Sprite.Hovering || OutputAnchor.Hovering) && PointerManager.Instance.DoubleClick())
+			{
+			 State = !State;
+			 OutputAnchor.Activated = State;
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 
 }

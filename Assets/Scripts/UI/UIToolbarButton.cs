@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace UntitledLogicGame.UI
 {
-    public class UIToolbarButton : MonoBehaviour, IPointerDownHandler
+	public class UIToolbarButton : MonoBehaviour, IPointerDownHandler
 	{
 		#region Unity Properties
 

@@ -24,11 +24,11 @@ Properties {
 	_BumpOutline		("Bump Outline", Range(0,1)) = 0.5
 	_BumpFace			("Bump Face", Range(0,1)) = 0.5
 
-	_ReflectFaceColor	    ("Face Color", Color) = (0,0,0,1)
+	_ReflectFaceColor		("Face Color", Color) = (0,0,0,1)
 	_ReflectOutlineColor	("Outline Color", Color) = (0,0,0,1)
 	_Cube 					("Reflection Cubemap", Cube) = "black" { /* TexGen CubeReflect */ }
-	_EnvMatrixRotation  	("Texture Rotation", vector) = (0, 0, 0, 0)
-	[HDR]_SpecColor		    ("Specular Color", Color) = (0,0,0,1)
+	_EnvMatrixRotation		("Texture Rotation", vector) = (0, 0, 0, 0)
+	[HDR]_SpecColor			("Specular Color", Color) = (0,0,0,1)
 
 	_FaceShininess		("Face Shininess", Range(0,1)) = 0
 	_OutlineShininess	("Outline Shininess", Range(0,1)) = 0
@@ -89,7 +89,7 @@ SubShader {
 		fixed4	color			: COLOR;
 		float2	uv_MainTex;
 		float2	uv2_FaceTex;
-		float2  uv2_OutlineTex;
+		float2	uv2_OutlineTex;
 		float2	param;						// Weight, Scale
 		float3	viewDirEnv;
 	};

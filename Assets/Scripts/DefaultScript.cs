@@ -5,31 +5,31 @@ using UnityEngine;
 
 namespace UntitledLogicGame
 {
-    //public class TODO : MonoBehaviour
-    //{
-    //    #region Unity Properties
+	//public class TODO : MonoBehaviour
+	//{
+	//	#region Unity Properties
 
-    //    #endregion
+	//	#endregion
 
-    //    #region Public Properties
+	//	#region Public Properties
 
-    //    #endregion
+	//	#endregion
 
-    //    #region Private Properties
+	//	#region Private Properties
 
-    //    #endregion
+	//	#endregion
 
-    //    #region Unity Methods
+	//	#region Unity Methods
 
-    //    #endregion
+	//	#endregion
 
-    //    #region Public Methods
+	//	#region Public Methods
 
-    //    #endregion
+	//	#endregion
 
-    //    #region Private Methods
+	//	#region Private Methods
 
-    //    #endregion
-    //}
+	//	#endregion
+	//}
 
 }

@@ -74,7 +74,7 @@ SubShader {
 		fixed4	color		: COLOR;
 		float2	uv_MainTex;
 		float2	uv2_FaceTex;
-		float2  uv2_OutlineTex;
+		float2	uv2_OutlineTex;
 		float2	param;					// Weight, Scale
 		float3	viewDirEnv;
 	};

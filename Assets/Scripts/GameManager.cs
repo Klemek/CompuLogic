@@ -6,80 +6,80 @@ using UntitledLogicGame.Workspace;
 
 namespace UntitledLogicGame
 {
-    public class GameManager : MonoBehaviour
-    {
-        #region Static Properties
+	public class GameManager : MonoBehaviour
+	{
+		#region Static Properties
 
-        public static GameManager Instance { 
-            get
-            {
-                if (_instance == null)
-                    _instance = FindObjectOfType<GameManager>();
-                return _instance;
-            }
-        }
-        private static GameManager _instance;
+		public static GameManager Instance { 
+			get
+			{
+			 if (_instance == null)
+				_instance = FindObjectOfType<GameManager>();
+			 return _instance;
+			}
+		}
+		private static GameManager _instance;
 
-        #endregion
+		#endregion
 
-        #region Unity Properties
+		#region Unity Properties
 
-        [Header("Prefabs")]
-        public Cable CablePrefab;
+		[Header("Prefabs")]
+		public Cable CablePrefab;
 
-        [Header("Groups")]
-        public Transform GatesGroup;
-        public Transform CablesGroup;
+		[Header("Groups")]
+		public Transform GatesGroup;
+		public Transform CablesGroup;
 
-        [Header("Colors")]
-        public Color DeadColor;
-        public Color ActivatedColor;
+		[Header("Colors")]
+		public Color DeadColor;
+		public Color ActivatedColor;
 
-        [Header("Gates")]
-        public List<Gate> GatePrefabs;
+		[Header("Gates")]
+		public List<Gate> GatePrefabs;
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public Anchor CurrentAnchor { get; set; }
-        public Gate CurrentGate { get; set; }
-        public PointerManager PointerManager 
-        {
-            get
-            {
-                if (_pointerManager == null)
-                    _pointerManager = GetComponent<PointerManager>();
-                return _pointerManager;
-            }
-        }
+		public Anchor CurrentAnchor { get; set; }
+		public Gate CurrentGate { get; set; }
+		public PointerManager PointerManager 
+		{
+			get
+			{
+			 if (_pointerManager == null)
+				_pointerManager = GetComponent<PointerManager>();
+			 return _pointerManager;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private PointerManager _pointerManager;
+		private PointerManager _pointerManager;
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        public void CreateGate(Gate gatePrefab)
-        {
-            var gate = Instantiate(gatePrefab, GatesGroup);
-            gate.transform.position = PointerManager.MousePos - gate.Box.transform.position;
-            PointerManager.DragGate(gate, true);
-        }
+		public void CreateGate(Gate gatePrefab)
+		{
+			var gate = Instantiate(gatePrefab, GatesGroup);
+			gate.transform.position = PointerManager.MousePos - gate.Box.transform.position;
+			PointerManager.DragGate(gate, true);
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        #endregion
-    }
+		#endregion
+	}
 
 }

@@ -6,53 +6,53 @@ using UntitledLogicGame.Workspace.Gates;
 
 namespace UntitledLogicGame.Workspace
 {
-    public class GateSprite : MonoBehaviour
-    {
-        #region Unity Properties
+	public class GateSprite : MonoBehaviour
+	{
+		#region Unity Properties
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public bool Hovering { get; internal set; }
+		public bool Hovering { get; internal set; }
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private Gate _gate;
+		private Gate _gate;
 
-        #endregion
+		#endregion
 
-        #region Unity Methods
+		#region Unity Methods
 
-        private void Start()
-        {
-            _gate = GetComponentInParent<Gate>();
-        }
+		private void Start()
+		{
+			_gate = GetComponentInParent<Gate>();
+		}
 
-        private void OnMouseEnter()
-        {
-            GameManager.Instance.CurrentGate = _gate;
-            Hovering = true;
-        }
+		private void OnMouseEnter()
+		{
+			GameManager.Instance.CurrentGate = _gate;
+			Hovering = true;
+		}
 
-        private void OnMouseExit()
-        {
-            if (_gate.Equals(GameManager.Instance.CurrentGate))
-                GameManager.Instance.CurrentGate = null;
-            Hovering = false;
-        }
+		private void OnMouseExit()
+		{
+			if (_gate.Equals(GameManager.Instance.CurrentGate))
+			 GameManager.Instance.CurrentGate = null;
+			Hovering = false;
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

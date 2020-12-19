@@ -55,7 +55,7 @@ Properties {
 
 SubShader {
 	Tags
-  {
+	{
 		"Queue"="Overlay"
 		"IgnoreProjector"="True"
 		"RenderType"="Transparent"
@@ -226,7 +226,7 @@ SubShader {
 			c *= input.texcoord1.z;
 		#endif
 
-    #if UNITY_UI_ALPHACLIP
+	#if UNITY_UI_ALPHACLIP
 			clip(c.a - 0.001);
 		#endif
 
