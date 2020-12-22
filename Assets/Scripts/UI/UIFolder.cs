@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UntitledLogicGame.UI
 {
@@ -12,8 +12,8 @@ namespace UntitledLogicGame.UI
 	{
 		#region Unity Properties
 
-		public SVGImage folderImage;
-		public SVGImage backImage;
+		public Sprite folderImage;
+		public Sprite backImage;
 
 		#endregion
 
@@ -39,7 +39,7 @@ namespace UntitledLogicGame.UI
 
 		private void OnEnable()
 		{
-			Image.sprite = IsBack ? backImage.sprite : folderImage.sprite;
+			Image.sprite = IsBack ? backImage : folderImage;
 		}
 
 		#endregion

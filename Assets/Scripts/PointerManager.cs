@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UntitledLogicGame.Workspace;
 
@@ -148,7 +147,6 @@ namespace UntitledLogicGame
 
 			if(_currentCursor != cursor)
 			{
-			 //TODO Invalid texture used for cursor - check importer settings or texture creation. Texture must be RGBA32, readable, have alphaIsTransparency enabled and have no mip chain.
 			 Cursor.SetCursor(cursor, position, CursorMode.Auto);
 			 _currentCursor = cursor;
 			}

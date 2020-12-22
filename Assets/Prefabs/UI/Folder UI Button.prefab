@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc88317bf8def394099cd222acc35347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  folderImage: {fileID: -2096247744014415210, guid: fd65d4ae500ab124db6385ee24d0ee29, type: 3}
-  backImage: {fileID: 1066741472340853131, guid: fd715c8c2bc33bc4eb0a51a82bfc92d5, type: 3}
+  folderImage: {fileID: 21300000, guid: ea7d8f4bfb17af54b9b58f6a2b50ad75, type: 3}
+  backImage: {fileID: 21300000, guid: b4f05fadf07fd6a499e6e89a7dde2b82, type: 3}
 --- !u!1001 &5072118911353822001
 PrefabInstance:
   m_ObjectHideFlags: 0

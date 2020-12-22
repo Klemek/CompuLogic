@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b6ed78fbbf4124794530c3e8451329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closedImage: {fileID: 4171914137072684936, guid: ac6a92b2185049c489e96cdddf0efb50, type: 3}
-  openImage: {fileID: 1718401066980627502, guid: 2b0bec83cb4bdfa4082ea5a275e8ae55, type: 3}
+  closedImage: {fileID: 21300000, guid: 3c11618a6a0adc04eb5fa3ee5507934a, type: 3}
+  openImage: {fileID: 21300000, guid: 4c81118a19bd25f4cb6b77b8e0a3a48c, type: 3}
 --- !u!1001 &2882730349299521067
 PrefabInstance:
   m_ObjectHideFlags: 0

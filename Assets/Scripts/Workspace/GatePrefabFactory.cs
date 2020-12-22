@@ -65,7 +65,7 @@ namespace UntitledLogicGame.Workspace
 			gate.GateType = (GateType)key;
 			
 
-			var sprite = _gateSprites.First(s => s.name == $"{item.Skin}Sprite");
+			var sprite = _gateSprites.First(s => s.name == item.Skin);
 			gate.Sprite.Renderer.sprite = sprite;
 			gate.Sprite.ResetCollider();
 

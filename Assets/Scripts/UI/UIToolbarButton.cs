@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UntitledLogicGame.UI
 {
@@ -16,12 +16,12 @@ namespace UntitledLogicGame.UI
 
 		#region Public Properties
 
-		public SVGImage Image
+		public Image Image
 		{
 			get
 			{
 				if (_image == null)
-					_image = GetComponentInChildren<SVGImage>();
+					_image = GetComponentInChildren<Image>();
 				return _image;
 			}
 		}
@@ -51,7 +51,7 @@ namespace UntitledLogicGame.UI
 		#region Private Properties
 
 
-		private SVGImage _image;
+		private Image _image;
 		private TextMeshProUGUI _text;
 		private RectTransform _rect;
 

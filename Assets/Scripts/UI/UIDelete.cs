@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UntitledLogicGame.UI
 {
-	public class UIDelete : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	public class UIDelete : UIToolbarButton, IPointerEnterHandler, IPointerExitHandler
 	{
 		#region Unity Properties
 
-		public SVGImage closedImage;
-		public SVGImage openImage;
+		public Sprite closedImage;
+		public Sprite openImage;
 
 		#endregion
 
@@ -21,37 +21,25 @@ namespace UntitledLogicGame.UI
 
 		#region Private Properties
 
-		private SVGImage Image
-		{
-			get
-			{
-				if(_image == null)
-					_image = GetComponentInChildren<SVGImage>();
-				return _image;
-			}
-		}
-
-		private SVGImage _image;
-
 		#endregion
 
 		#region Unity Methods
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{
-			Image.sprite = openImage.sprite;
+			Image.sprite = openImage;
 			PointerManager.Instance.DeleteOnRelease = true;
 		}
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
-			Image.sprite = closedImage.sprite;
+			Image.sprite = closedImage;
 			PointerManager.Instance.DeleteOnRelease = false;
 		}
 
 		private void OnEnable()
 		{
-			Image.sprite = closedImage.sprite;
+			Image.sprite = closedImage;
 		}
 
 		#endregion

@@ -103,6 +103,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5649604385180638932, guid: f7f0fe83d2fb22d44b7dc6efb019acae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 01327adc9a6ecc64f86ce22adff1a362, type: 3}
+    - target: {fileID: 5649604385180638932, guid: f7f0fe83d2fb22d44b7dc6efb019acae, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8104482241897382010, guid: f7f0fe83d2fb22d44b7dc6efb019acae, type: 3}
       propertyPath: m_text
       value: ERR
