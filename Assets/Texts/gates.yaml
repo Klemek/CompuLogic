@@ -13,6 +13,42 @@ list:
     class: OutputGate
     input:
       - A 1.5 1.5 W big
+  120:
+    skin: clk
+    name: CLK 1Hz
+    width: 3
+    height: 3
+    class: ClockGate
+    output:
+      - Q 2.5 1.5 E
+    properties: [ 1 ]
+  130:
+    skin: clk
+    name: CLK 5Hz
+    width: 3
+    height: 3
+    class: ClockGate
+    output:
+      - Q 2.5 1.5 E
+    properties: [ 0.2 ]
+  140:
+    skin: clk
+    name: CLK 10Hz
+    width: 3
+    height: 3
+    class: ClockGate
+    output:
+      - Q 2.5 1.5 E
+    properties: [ 0.1 ]
+  150:
+    skin: clk
+    name: CLK 50Hz
+    width: 3
+    height: 3
+    class: ClockGate
+    output:
+      - Q 2.5 1.5 E
+    properties: [ 0.02 ]
   200:
     skin: buffer
     width: 3

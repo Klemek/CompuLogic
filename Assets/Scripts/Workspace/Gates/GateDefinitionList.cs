@@ -15,11 +15,19 @@ namespace CompuLogic.Workspace.Gates
 
 	#endregion
 
-	#region 100 - Special
+	#region 100 - I/O
 
 	internal class INGate : NoneGate { }
 
 	internal class OUTGate : NoneGate { }
+
+	internal class CLK1Gate : NoneGate { }
+
+	internal class CLK2Gate : NoneGate { }
+
+	internal class CLK3Gate : NoneGate { }
+
+	internal class CLK4Gate : NoneGate { }
 
 	#endregion
 

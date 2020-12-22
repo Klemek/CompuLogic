@@ -64,6 +64,7 @@ namespace CompuLogic.Workspace
 			}
 
 			gate.GateType = (GateType)key;
+			gate.CustomProperties = item.Properties;
 
 			gate.UIName = string.IsNullOrEmpty(item.Name) ? gate.GateType.ToString() : item.Name;
 
@@ -146,6 +147,7 @@ namespace CompuLogic.Workspace
 			public List<string> Output { get; set; }
 			public List<GateBookItemAnchor> InputAnchors => Input.Select(i => i.Split(new char[0])).Select(GateBookItemAnchor.Get).ToList();
 			public List<GateBookItemAnchor> OutputAnchors => Output.Select(i => i.Split(new char[0])).Select(GateBookItemAnchor.Get).ToList();
+			public List<float> Properties;
 		}
 
 		public class GateBookItemAnchor

@@ -20,9 +20,9 @@ namespace CompuLogic.Workspace
 		{
 			get
 			{
-			 if(_anchors == null)
-				_anchors = GetComponentsInChildren<Anchor>().ToList();
-			 return _anchors;
+				if(_anchors == null)
+					_anchors = GetComponentsInChildren<Anchor>().ToList();
+				return _anchors;
 			}
 		}
 		public IEnumerable<Anchor> InputAnchors => Anchors.Where(a => a.IsInput);
@@ -30,30 +30,31 @@ namespace CompuLogic.Workspace
 		public BoxCollider2D Box {
 			get
 			{
-			 if (_box == null)
-				_box = GetComponentInChildren<BoxCollider2D>();
-			 return _box;
+				if (_box == null)
+					_box = GetComponentInChildren<BoxCollider2D>();
+				return _box;
 			}
 		}
 		public GateSprite Sprite
 		{
 			get
 			{
-			 if(_sprite == null)
-				_sprite = GetComponentInChildren<GateSprite>();
-			 return _sprite;
+				if(_sprite == null)
+					_sprite = GetComponentInChildren<GateSprite>();
+				return _sprite;
 			}
 		}
 		public GateDefinition Definition
 		{
 			get
 			{
-			 if(_definition == null)
-				_definition = GateDefinition.Get(GateType, this);
-			 return _definition;
+				if(_definition == null)
+					_definition = GateDefinition.Get(GateType, this);
+				return _definition;
 			}
 		}
 		public string UIName { get; set; }
+		public List<float> CustomProperties;
 
 		#endregion
 
@@ -89,7 +90,7 @@ namespace CompuLogic.Workspace
 			return !Definition.HasState && (
 				InputAnchors.Contains(target) ||
 				InputAnchors.Any(a => a.HasInputAnchor(target))
-			 );
+			);
 		}
 
 		#endregion
@@ -101,8 +102,8 @@ namespace CompuLogic.Workspace
 			var state = Definition.GetState(this).ToInt();
 			if (state != _lastState)
 			{
-			 Definition.Compute(this);
-			 _lastState = state;
+				Definition.Compute(this);
+				_lastState = state;
 			}
 		}
 
