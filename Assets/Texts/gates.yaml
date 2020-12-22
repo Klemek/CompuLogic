@@ -92,3 +92,33 @@ list:
       - B 0.5 3.5 W
     output:
       - Q 6.5 2.5 E
+  300:
+    name: SR Latch
+    width: 5
+    height: 6
+    input:
+      - S 0.5 1.5 W
+      - R 0.5 4.5 W
+    output:
+      - Q 4.5 1.5 W
+      - Q̅ 4.5 4.5 W
+  310:
+    name: JK Latch
+    width: 5
+    height: 6
+    input:
+      - J 0.5 1.5 W
+      - K 0.5 4.5 W
+    output:
+      - Q 4.5 1.5 W
+      - Q̅ 4.5 4.5 W
+  320:
+    name: D Latch
+    width: 5
+    height: 6
+    input:
+      - D 0.5 1.5 W
+      - E 0.5 4.5 W
+    output:
+      - Q 4.5 1.5 W
+      - Q̅ 4.5 4.5 W

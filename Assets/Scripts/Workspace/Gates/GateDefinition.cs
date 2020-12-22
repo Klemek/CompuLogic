@@ -19,8 +19,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		// Public properties
 		public GateType Type { get; private set; }
 		public GateCategory Category => (GateCategory)((int)Type / 100);
-		public string Name => Type.ToString();
-		public bool HasState => false;
+		public abstract bool HasState { get; }
 		public Dictionary<InputState, OutputState> TruthTable { get; private set; } = new Dictionary<InputState, OutputState>();
 
 		// Herited properties
@@ -121,8 +120,13 @@ namespace UntitledLogicGame.Workspace.Gates
 		}
 	}
 
-	internal abstract class StateGateDefinition : GateDefinition
+	internal abstract class StatelessGateDefinition : GateDefinition
 	{
-		public new bool HasState => true;
+		public override bool HasState { get; } = false;
+	}
+
+	internal abstract class StatefulGateDefinition : GateDefinition
+	{
+		public override bool HasState { get; } = true;
 	}
 }

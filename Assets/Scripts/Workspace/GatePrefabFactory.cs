@@ -24,6 +24,7 @@ namespace UntitledLogicGame.Workspace
 		private Anchor _anchorPrefab;
 		private Anchor _bigAnchorPrefab;
 		private List<Sprite> _gateSprites;
+		private Sprite _defaultSprite => _gateSprites.First(s => s.name == "default");
 
 		#endregion
 
@@ -63,10 +64,20 @@ namespace UntitledLogicGame.Workspace
 			}
 
 			gate.GateType = (GateType)key;
-			
 
-			var sprite = _gateSprites.First(s => s.name == item.Skin);
-			gate.Sprite.Renderer.sprite = sprite;
+			gate.UIName = string.IsNullOrEmpty(item.Name) ? gate.GateType.ToString() : item.Name;
+			
+			if (string.IsNullOrEmpty(item.Skin))
+			{
+				gate.Sprite.Renderer.sprite = _defaultSprite;
+				gate.Sprite.Renderer.drawMode = SpriteDrawMode.Sliced;
+				gate.Sprite.Renderer.size = new Vector2(item.Width, item.Height);
+			}
+			else
+			{
+				var sprite = _gateSprites.First(s => s.name == item.Skin);
+				gate.Sprite.Renderer.sprite = sprite;
+			}
 			gate.Sprite.ResetCollider();
 
 			if(item.Input != null && item.Input.Count > 0)
@@ -101,7 +112,7 @@ namespace UntitledLogicGame.Workspace
 				1f
 			);
 
-			Debug.Log($"Loaded gate {gate.Definition.Name}");
+			Debug.Log($"Loaded gate {key} {gate.GateType}");
 
 			return gate;
 		}
@@ -122,6 +133,7 @@ namespace UntitledLogicGame.Workspace
 		public class GateBookItem
 		{
 			public string Skin { get; set; }
+			public string Name { get; set; }
 			public int Width { get; set; }
 			public int Height { get; set; }
 			public string Class { get; set; }

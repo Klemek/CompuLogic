@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,19 @@ namespace UntitledLogicGame.UI
 {
 	public class UIGate : UIToolbarButton
 	{
+		#region Static Properties
+
+		public float MaxSize { 
+			get 
+			{
+				if(_maxSize == null)
+					_maxSize = GameManager.Instance.GateSprites.Select(s => s.rect.width).Max();
+				return _maxSize.Value;
+			} 
+		}
+		private float? _maxSize;
+		#endregion
+
 		#region Unity Properties
 
 		#endregion
@@ -23,9 +37,9 @@ namespace UntitledLogicGame.UI
 			{
 				var sprite = value.GetComponentInChildren<SpriteRenderer>().sprite;
 				Image.sprite = sprite;
-				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * sprite.rect.width / 700f); // TODO get max width from UIManager
-				gameObject.name = "UI_" + value.Definition.Name;
-				Text.text = value.Definition.Name;
+				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * sprite.rect.width / MaxSize);
+				gameObject.name = "UI_" + value.GateType.ToString();
+				Text.text = value.UIName;
 			}
 		}
 

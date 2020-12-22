@@ -530,7 +530,7 @@ MonoBehaviour:
   GateSprites:
   - {fileID: 21300000, guid: 7c428151c48a9e7469e49309fd0842fb, type: 3}
   - {fileID: 21300000, guid: 93ae44d6ee7ae4c4bbfef39811752f3a, type: 3}
-  - {fileID: -620755829403384321, guid: da2a0d4ce655c0d4cbbb94bd47b72db7, type: 3}
+  - {fileID: 21300000, guid: da2a0d4ce655c0d4cbbb94bd47b72db7, type: 3}
   - {fileID: 21300000, guid: 01327adc9a6ecc64f86ce22adff1a362, type: 3}
   - {fileID: 21300000, guid: bcba8dfefa97b414f9d2e8ab38cc5e68, type: 3}
   - {fileID: 21300000, guid: 6bd139aab8ffc4e46941870cf98a7b92, type: 3}
@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e573998e532eb42bdb43b80953d23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinDistanceInteracting: 0.5
   DoubleClickThreshold: 0.05
   DoubleClickDelay: 0.5
   DefaultCursor: {fileID: 2800000, guid: 65e646daa3ca2db4f991e6231e8dce8f, type: 3}

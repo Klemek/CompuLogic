@@ -53,6 +53,7 @@ namespace UntitledLogicGame.Workspace
 			 return _definition;
 			}
 		}
+		public string UIName { get; set; }
 
 		#endregion
 
@@ -70,7 +71,7 @@ namespace UntitledLogicGame.Workspace
 
 		private void Start()
 		{
-			Utils.RandomName(Definition.Name, gameObject);
+			Utils.RandomName(GateType.ToString(), gameObject);
 		}
 
 		// Update is called once per frame

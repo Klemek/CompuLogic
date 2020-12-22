@@ -60,7 +60,8 @@ namespace UntitledLogicGame.Workspace
 		public void ResetCollider()
 		{
 			Destroy(GetComponent<PolygonCollider2D>());
-			gameObject.AddComponent<PolygonCollider2D>();
+			var collider = gameObject.AddComponent<PolygonCollider2D>();
+			collider.autoTiling = true;
 		}
 
 		#endregion

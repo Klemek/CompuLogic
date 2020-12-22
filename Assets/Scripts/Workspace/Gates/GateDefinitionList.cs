@@ -5,7 +5,7 @@ namespace UntitledLogicGame.Workspace.Gates
 {
 	#region 000 - Technical
 
-	internal class NoneGate : GateDefinition
+	internal class NoneGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { };
 		public override string[] Outputs { get; } = new string[] { };
@@ -25,7 +25,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 200 - Basic
 
-	internal class BUFGate : GateDefinition
+	internal class BUFGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -33,7 +33,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(input[0]);
 	}
 
-	internal class ANDGate : GateDefinition
+	internal class ANDGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -41,7 +41,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(input[0] && input[1]);
 	}
 
-	internal class ORGate : GateDefinition
+	internal class ORGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -49,7 +49,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(input[0] || input[1]);
 	}
 
-	internal class XORGate : GateDefinition
+	internal class XORGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -57,7 +57,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(input[0] ^ input[1]);
 	}
 
-	internal class NOTGate : GateDefinition
+	internal class NOTGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -65,7 +65,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(!input[0]);
 	}
 
-	internal class NANDGate : GateDefinition
+	internal class NANDGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -73,7 +73,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(!(input[0] && input[1]));
 	}
 
-	internal class NORGate : GateDefinition
+	internal class NORGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -81,7 +81,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		internal override Func<InputState, OutputState> Function => (input) => new OutputState(!(input[0] || input[1]));
 	}
 
-	internal class XNORGate : GateDefinition
+	internal class XNORGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
 		public override string[] Outputs { get; } = new string[] { "Q" };
@@ -93,7 +93,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 300 - Latches
 
-	internal class SRLatchGate : StateGateDefinition
+	internal class SRLatchGate : StatefulGateDefinition
 	{
 		public new string Name => "SR Latch";
 		public override string[] Inputs { get; } = new string[] { "S", "R" };
@@ -113,7 +113,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class JKLatchGate : StateGateDefinition
+	internal class JKLatchGate : StatefulGateDefinition
 	{
 		public new string Name => "JK Latch";
 		public override string[] Inputs { get; } = new string[] { "J", "K" };
@@ -135,7 +135,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class DLatchGate : StateGateDefinition
+	internal class DLatchGate : StatefulGateDefinition
 	{
 		public new string Name => "D Latch";
 		public override string[] Inputs { get; } = new string[] { "D", "E" };
@@ -157,7 +157,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 400 - Flip-Flops
 
-	internal class SRFlipFlopGate : StateGateDefinition
+	internal class SRFlipFlopGate : StatefulGateDefinition
 	{
 		public new string Name => "SR Flip-Flop";
 		public override string[] Inputs { get; } = new string[] { "CLK", "S", "R" };
@@ -181,7 +181,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class JKFlipFlopGate : StateGateDefinition
+	internal class JKFlipFlopGate : StatefulGateDefinition
 	{
 		public new string Name => "JK Flip-Flop";
 		public override string[] Inputs { get; } = new string[] { "CLK", "J", "K" };
@@ -207,7 +207,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class DFlipFlopGate : StateGateDefinition
+	internal class DFlipFlopGate : StatefulGateDefinition
 	{
 		public new string Name => "D Flip-Flop";
 		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
@@ -227,7 +227,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class TFlipFlopGate : StateGateDefinition
+	internal class TFlipFlopGate : StatefulGateDefinition
 	{
 		public new string Name => "T Flip-Flop";
 		public override string[] Inputs { get; } = new string[] { "CLK", "T" };
@@ -252,7 +252,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 500 - Arithmetic
 
-	internal class HalfAddGate : GateDefinition
+	internal class HalfAddGate : StatelessGateDefinition
 	{
 		public new string Name => "Half Add.";
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
@@ -270,7 +270,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class FullAddGate : GateDefinition
+	internal class FullAddGate : StatelessGateDefinition
 	{
 		public new string Name => "Full Add.";
 		public override string[] Inputs { get; } = new string[] { "A", "B", "Cɪ" };
@@ -289,7 +289,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class HalfSubGate : GateDefinition
+	internal class HalfSubGate : StatelessGateDefinition
 	{
 		public new string Name => "Half Sub.";
 		public override string[] Inputs { get; } = new string[] { "A", "B" };
@@ -308,7 +308,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	}
 
-	internal class FullSubGate : GateDefinition
+	internal class FullSubGate : StatelessGateDefinition
 	{
 		public new string Name => "Full Add.";
 		public override string[] Inputs { get; } = new string[] { "A", "B", "Cɪ" };
@@ -332,7 +332,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 600 - Data
 
-	internal class MuxGate : GateDefinition
+	internal class MuxGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "E", "S", "D₀", "D₁" };
 		public override string[] Outputs { get; } = new string[] { "Y" };
@@ -350,7 +350,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class DemuxGate : GateDefinition
+	internal class DemuxGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "E", "S", "D" };
 		public override string[] Outputs { get; } = new string[] { "Y₀", "Y₁" };
@@ -368,7 +368,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class Mux2bGate : GateDefinition
+	internal class Mux2bGate : StatelessGateDefinition
 	{
 		public new string Name => "2bits Mux";
 		public override string[] Inputs { get; } = new string[] { "E", "S₀", "S₁", "D₀", "D₁", "D₂", "D₃" };
@@ -395,7 +395,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class Demux2bGate : GateDefinition
+	internal class Demux2bGate : StatelessGateDefinition
 	{
 		public new string Name => "2bits Demux";
 		public override string[] Inputs { get; } = new string[] { "E", "S₀", "S₁", "D" };
@@ -417,7 +417,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class Enc2b4bGate : GateDefinition
+	internal class Enc2b4bGate : StatelessGateDefinition
 	{
 		public new string Name => "2b/4b Enc.";
 		public override string[] Inputs { get; } = new string[] { "D₀", "D₁" };
@@ -437,7 +437,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class Dec4b2bGate : GateDefinition
+	internal class Dec4b2bGate : StatelessGateDefinition
 	{
 		public new string Name => "4b/2b Dec.";
 		public override string[] Inputs { get; } = new string[] { "D₀", "D₁", "D₂", "D₃"};
@@ -461,7 +461,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 700 - Registers
 
-	internal class SISO4bGate : StateGateDefinition
+	internal class SISO4bGate : StatefulGateDefinition
 	{
 		public new string Name => "4bits SISO";
 		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
@@ -489,7 +489,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class SIPO4bGate : StateGateDefinition
+	internal class SIPO4bGate : StatefulGateDefinition
 	{
 		public new string Name => "4bits SIPO";
 		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
@@ -517,7 +517,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class PIPO4bGate : StateGateDefinition
+	internal class PIPO4bGate : StatefulGateDefinition
 	{
 		public new string Name => "4bits PIPO";
 		public override string[] Inputs { get; } = new string[] { "CLK", "D₀", "D₁", "D₂", "D₃"	};
@@ -552,7 +552,7 @@ namespace UntitledLogicGame.Workspace.Gates
 
 	#region 800 - Counters
 
-	internal class Counter2bGate : StateGateDefinition
+	internal class Counter2bGate : StatefulGateDefinition
 	{
 		public new string Name => "2bits Count.";
 		public override string[] Inputs { get; } = new string[] { "CLK", "RST" };
@@ -584,7 +584,7 @@ namespace UntitledLogicGame.Workspace.Gates
 		};
 	}
 
-	internal class Counter4bGate : StateGateDefinition
+	internal class Counter4bGate : StatefulGateDefinition
 	{
 		public new string Name => "4bits Count.";
 		public override string[] Inputs { get; } = new string[] { "CLK", "RST" };

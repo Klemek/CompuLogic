@@ -16,6 +16,9 @@ namespace UntitledLogicGame
 
 		#region Unity Properties
 
+		[Header("Interaction")]
+		public float MinDistanceInteracting;
+
 		[Header("Click")]
 		public float DoubleClickThreshold;
 		public float DoubleClickDelay;
@@ -30,8 +33,9 @@ namespace UntitledLogicGame
 		#region Public Properties
 
 		public static Vector3 MousePos { get; set; }
-		public bool Interacting => _currentCable != null || _currentGate != null;
-		public bool MovingObject => _currentGate != null;
+		public bool Interacting => DraggingCable || MovingObject;
+		public bool DraggingCable => _currentCable != null && (_currentCableInitialMousePos - MousePos).magnitude > MinDistanceInteracting;
+		public bool MovingObject => _currentGate != null && (_currentGateInitialPos == null || (_currentGateInitialPos.Value - _currentGate.transform.position).magnitude > MinDistanceInteracting);
 		public bool Clicking => Input.GetButton("Fire1");
 		public bool DeleteOnRelease { get; set; }
 
@@ -40,6 +44,7 @@ namespace UntitledLogicGame
 		#region Private Properties
 
 		private Cable _currentCable;
+		private Vector3 _currentCableInitialMousePos;
 		private Gate _currentGate;
 		private Vector3? _currentGateInitialPos;
 		private Vector3 _currentGateDelta;
@@ -57,11 +62,11 @@ namespace UntitledLogicGame
 
 			if (Clicking)
 			{
-			 UpdateDrag();
+				UpdateDrag();
 			}
 			else
 			{
-			 UpdateDrop();
+				UpdateDrop();
 			}
 
 			UpdateCursor();
@@ -78,7 +83,7 @@ namespace UntitledLogicGame
 			_currentGateInitialPos = created ? (Vector3?)null : _currentGate.transform.position;
 			foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
 			{
-			 renderer.sortingLayerName = "moving";
+				renderer.sortingLayerName = "moving";
 			}
 		}
 
@@ -86,8 +91,8 @@ namespace UntitledLogicGame
 		{
 			if (_currentGate != null)
 			{
-			 Destroy(_currentGate.gameObject);
-			 _currentGate = null;
+				Destroy(_currentGate.gameObject);
+				_currentGate = null;
 			}
 		}
 
@@ -96,24 +101,24 @@ namespace UntitledLogicGame
 			
 			if (Clicking)
 			{
-			 _clicked += Time.deltaTime;
+				_clicked += Time.deltaTime;
 			}
 			else
 			{
-			 if(_clicked >= DoubleClickThreshold)
-			 {
-				if(Time.time - _clicktime < DoubleClickDelay)
+				if(_clicked >= DoubleClickThreshold)
 				{
-					_clicked = 0f;
-					_clicktime = 0f;
-					return true;
+					if(Time.time - _clicktime < DoubleClickDelay)
+					{
+						_clicked = 0f;
+						_clicktime = 0f;
+						return true;
+					}
+					else
+					{
+						_clicktime = Time.time;
+					}
 				}
-				else
-				{
-					_clicktime = Time.time;
-				}
-			 }
-			 _clicked = 0f;
+				_clicked = 0f;
 			}
 			return false;
 		}
@@ -133,22 +138,23 @@ namespace UntitledLogicGame
 		{
 			var cursor = DefaultCursor;
 			var position = Vector2.zero;
+			var interacting = _currentCable != null || _currentGate != null;
 
-			if (!Interacting && GameManager.Instance.CurrentAnchor != null || Interacting && _currentCable != null)
+			if (!interacting && GameManager.Instance.CurrentAnchor != null || _currentCable != null)
 			{
-			 cursor = PointerCursor;
-			 position = new Vector2(cursor.width / 2f, 0f);
+				cursor = PointerCursor;
+				position = new Vector2(cursor.width / 2f, 0f);
 			}
-			else if (!Interacting && GameManager.Instance.CurrentGate != null || Interacting && _currentGate != null)
+			else if (!interacting && GameManager.Instance.CurrentGate != null || _currentGate != null)
 			{
-			 cursor = MoveCursor;
-			 position = new Vector2(cursor.width / 2f, cursor.height / 2f);
+				cursor = MoveCursor;
+				position = new Vector2(cursor.width / 2f, cursor.height / 2f);
 			}
 
 			if(_currentCursor != cursor)
 			{
-			 Cursor.SetCursor(cursor, position, CursorMode.Auto);
-			 _currentCursor = cursor;
+				Cursor.SetCursor(cursor, position, CursorMode.Auto);
+				_currentCursor = cursor;
 			}
 		}
 
@@ -156,21 +162,22 @@ namespace UntitledLogicGame
 		{
 			if (_currentCable != null) // Dragging cable
 			{
-			 _currentCable.FallbackEndPos = MousePos;
+				_currentCable.FallbackEndPos = MousePos;
 			}
 			else if (_currentGate != null) // Dragging gate
 			{
-			 _currentGate.transform.position = MousePos - _currentGateDelta;
+				_currentGate.transform.position = MousePos - _currentGateDelta;
 			}
 			else if (GameManager.Instance.CurrentAnchor != null) // Dragging new cable
 			{
-			 _currentCable = Instantiate(GameManager.Instance.CablePrefab, GameManager.Instance.CablesGroup, true);
-			 _currentCable.StartAnchor = GameManager.Instance.CurrentAnchor;
-			 _currentCable.FallbackEndPos = MousePos;
+				_currentCable = Instantiate(GameManager.Instance.CablePrefab, GameManager.Instance.CablesGroup, true);
+				_currentCable.StartAnchor = GameManager.Instance.CurrentAnchor;
+				_currentCable.FallbackEndPos = MousePos;
+				_currentCableInitialMousePos = MousePos;
 			}
 			else if (GameManager.Instance.CurrentGate != null) // Dragging new gate
 			{
-			 DragGate(GameManager.Instance.CurrentGate, false);
+				DragGate(GameManager.Instance.CurrentGate, false);
 			}
 		}
 
@@ -178,48 +185,48 @@ namespace UntitledLogicGame
 		{
 			if (_currentCable != null) // Dropping cable
 			{
-			 if (GameManager.Instance.CurrentAnchor == null || _currentCable.StartAnchor.IsInput == GameManager.Instance.CurrentAnchor.IsInput)
-			 {
-				Destroy(_currentCable.gameObject);
-			 }
-			 else
-			 {
-				_currentCable.EndAnchor = GameManager.Instance.CurrentAnchor;
-			 }
-			 _currentCable = null;
+				if (GameManager.Instance.CurrentAnchor == null || _currentCable.StartAnchor.IsInput == GameManager.Instance.CurrentAnchor.IsInput)
+				{
+					Destroy(_currentCable.gameObject);
+				}
+				else
+				{
+					_currentCable.EndAnchor = GameManager.Instance.CurrentAnchor;
+				}
+				_currentCable = null;
 			}
 			else if (_currentGate != null) // Dropping gate
 			{
-			 if (DeleteOnRelease)
-			 {
-				Destroy(_currentGate.gameObject);
-			 }
-			 else
-			 {
-				foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
+				if (DeleteOnRelease)
 				{
-					renderer.sortingLayerName = "default";
+					Destroy(_currentGate.gameObject);
 				}
-				_currentGate.transform.position = _currentGate.transform.position.Round();
-				var currentBox = _currentGate.Box;
-				if (FindObjectsOfType<Gate>()
-					.Where(g => !g.Equals(_currentGate))
-					.Select(g => g.Box)
-					.Any(b => currentBox.IsTouching(b)))
+				else
 				{
-					// Collision with another gate
-					if (_currentGateInitialPos == null)
+					foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
 					{
-						Destroy(_currentGate.gameObject);
+						renderer.sortingLayerName = "default";
 					}
-					else
+					_currentGate.transform.position = _currentGate.transform.position.Round();
+					var currentBox = _currentGate.Box;
+					if (FindObjectsOfType<Gate>()
+						.Where(g => !g.Equals(_currentGate))
+						.Select(g => g.Box)
+						.Any(b => currentBox.IsTouching(b)))
 					{
-						_currentGate.transform.position = _currentGateInitialPos.Value; // Reset pos
+						// Collision with another gate
+						if (_currentGateInitialPos == null)
+						{
+							Destroy(_currentGate.gameObject);
+						}
+						else
+						{
+							_currentGate.transform.position = _currentGateInitialPos.Value; // Reset pos
+						}
 					}
 				}
-			 }
-			 _currentGate = null;
-			 DeleteOnRelease = false;
+				_currentGate = null;
+				DeleteOnRelease = false;
 			}
 		}
 
