@@ -69,10 +69,10 @@ namespace CompuLogic.UI
 		{
 			if (PointerManager.Instance.Interacting != _lastMouseInteracting)
 			{
-			 //TODO animate go down
-			 GateBar.SetActive(!PointerManager.Instance.Interacting);
-			 MovingBar.SetActive(PointerManager.Instance.MovingObject);
-			 _lastMouseInteracting = PointerManager.Instance.Interacting;
+				//TODO animate go down
+				GateBar.SetActive(!PointerManager.Instance.Interacting);
+				MovingBar.SetActive(PointerManager.Instance.MovingObject);
+				_lastMouseInteracting = PointerManager.Instance.Interacting;
 			}
 		}
 

@@ -200,3 +200,177 @@ list:
     output:
       - Q 4.5 1.5 E
       - Q̅ 4.5 5.5 E
+  500:
+    name: Half Add.
+    width: 5
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - S 4.5 1.5 E
+      - C 4.5 3.5 E
+  510:
+    name: Full Add.
+    width: 5
+    height: 7
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+      - Cɪ 0.5 5.5 W
+    output:
+      - S 4.5 1.5 E
+      - Cᴏ 4.5 5.5 E
+  520:
+    name: Half Sub.
+    width: 5
+    height: 5
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+    output:
+      - S 4.5 1.5 E
+      - C 4.5 3.5 E
+  530:
+    name: Full Sub.
+    width: 5
+    height: 7
+    input:
+      - A 0.5 1.5 W
+      - B 0.5 3.5 W
+      - Cɪ 0.5 5.5 W
+    output:
+      - S 4.5 1.5 E
+      - Cᴏ 4.5 5.5 E
+  600:
+    name: Mux.
+    width: 7
+    height: 7
+    input:
+      - D0 0.5 1.5 W
+      - D1 0.5 3.5 W
+      - E 2.5 6.5 S
+      - S 4.5 6.5 S
+    output:
+      - Y 6.5 2.5 E
+  610:
+    name: Demux.
+    width: 7
+    height: 7
+    input:
+      - D 0.5 2.5 W
+      - E 2.5 6.5 S
+      - S 4.5 6.5 S
+    output:
+      - Y0 6.5 1.5 E
+      - Y1 6.5 3.5 E
+  620:
+    name: 2bits Mux.
+    width: 7
+    height: 7
+    input:
+      - D0 0.5 1.5 W
+      - D1 0.5 2.5 W
+      - D2 0.5 3.5 W
+      - D3 0.5 4.5 W
+      - E 2.5 6.5 S
+      - S0 3.5 6.5 S
+      - S1 4.5 6.5 S
+    output:
+      - Y 6.5 3.5 E
+  630:
+    name: 2bits Demux.
+    width: 7
+    height: 7
+    input:
+      - D 0.5 3.5 W
+      - E 2.5 6.5 S
+      - S0 3.5 6.5 S
+      - S1 4.5 6.5 S
+    output:
+      - Y0 6.5 1.5 E
+      - Y1 6.5 2.5 E
+      - Y2 6.5 3.5 E
+      - Y3 6.5 4.5 E
+  640:
+    name: 2b./4b. Enc.
+    width: 5
+    height: 6
+    input:
+      - D0 0.5 1.5 W
+      - D1 0.5 4.5 W
+    output:
+      - Y0 4.5 1.5 E
+      - Y1 4.5 2.5 E
+      - Y2 4.5 3.5 E
+      - Y3 4.5 4.5 E
+  650:
+    name: 2b./4b. Dec.
+    width: 5
+    height: 6
+    input:
+      - D0 0.5 1.5 W
+      - D1 0.5 2.5 W
+      - D2 0.5 3.5 W
+      - D3 0.5 4.5 W
+    output:
+      - Y0 4.5 1.5 E
+      - Y1 4.5 4.5 E
+  700:
+    name: 4bits SISO
+    width: 7
+    height: 7
+    input:
+      - D 0.5 1.5 W
+      - CLK 3.5 6.5 S
+    output:
+      - Q 6.5 1.5 E
+  710:
+    name: 4bits SIPO
+    width: 7
+    height: 7
+    input:
+      - D 0.5 1.5 W
+      - CLK 3.5 6.5 S
+    output:
+      - Q0 6.5 1.5 E
+      - Q1 6.5 2.5 E
+      - Q2 6.5 3.5 E
+      - Q3 6.5 4.5 E
+  720:
+    name: 4bits PIPO
+    width: 7
+    height: 7
+    input:
+      - D0 0.5 1.5 W
+      - D1 0.5 2.5 W
+      - D2 0.5 3.5 W
+      - D3 0.5 4.5 W
+      - CLK 3.5 6.5 S
+    output:
+      - Q0 6.5 1.5 E
+      - Q1 6.5 2.5 E
+      - Q2 6.5 3.5 E
+      - Q3 6.5 4.5 E
+  800:
+    name: 2bits Count.
+    width: 6
+    height: 5
+    input:
+      - CLK 1.5 4.5 S
+      - RST 2.5 4.5 S
+    output:
+      - Q0 5.5 1.5 E
+      - Q1 5.5 3.5 E
+  810:
+    name: 4bits Count.
+    width: 6
+    height: 6
+    input:
+      - CLK 1.5 5.5 S
+      - RST 2.5 5.5 S
+    output:
+      - Q0 5.5 1.5 E
+      - Q1 5.5 2.5 E
+      - Q2 5.5 3.5 E
+      - Q3 5.5 4.5 E

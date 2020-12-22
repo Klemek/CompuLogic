@@ -35,12 +35,12 @@
 		HalfSub = 520,
 		FullSub = 530,
 		// 600 - Data
-		Mux = 610,
-		Demux = 620,
-		Mux2b = 630,
-		Demux2b = 640,
-		Enc2b4b = 650,
-		Dec4b2b = 660,
+		Mux = 600,
+		Demux = 610,
+		Mux2b = 620,
+		Demux2b = 630,
+		Enc2b4b = 640,
+		Dec4b2b = 650,
 		// 700 - Registers
 		SISO4b = 700,
 		SIPO4b = 710,

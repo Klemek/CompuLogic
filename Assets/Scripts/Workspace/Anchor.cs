@@ -48,10 +48,13 @@ namespace CompuLogic.Workspace
 				{
 					Text.text = Name;
 					var rect = Text.GetComponent<RectTransform>();
-					rect.localRotation = (Mathf.Abs(Orientation.y) > Mathf.Epsilon) ? Quaternion.AngleAxis(90f, Vector3.forward) : Quaternion.identity;
-					rect.localPosition = new Vector3(Orientation.x, Orientation.y, 0f) * TextSpace;
-					Text.alignment = (Orientation.x < -Mathf.Epsilon || Orientation.y < -Mathf.Epsilon) ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.MidlineLeft;
-					
+					var rotate = (Mathf.Abs(Orientation.y) > Mathf.Epsilon && Name.Length > 1);
+					rect.localRotation = rotate ? Quaternion.AngleAxis(90f, Vector3.forward) : Quaternion.identity;
+					rect.localPosition = new Vector3(Orientation.x, Orientation.y, 0f) * -TextSpace;
+					if (!rotate && Mathf.Abs(Orientation.y) > Mathf.Epsilon)
+						Text.alignment = (Orientation.y < -Mathf.Epsilon) ? TextAlignmentOptions.Bottom : TextAlignmentOptions.Top;
+					else
+						Text.alignment = (Orientation.x < -Mathf.Epsilon || Orientation.y < -Mathf.Epsilon) ? TextAlignmentOptions.MidlineLeft : TextAlignmentOptions.MidlineRight;
 				}
 			}
 		}
@@ -95,7 +98,7 @@ namespace CompuLogic.Workspace
 			Utils.RandomName($"{Gate.GateType}_{Name}", gameObject);
 			_scale = Sprite.transform.localScale;
 			Cables = new List<Cable>();
-			Orientation = Orientation.normalized;
+			//Orientation = Orientation.normalized;
 		}
 
 		// Update is called once per frame

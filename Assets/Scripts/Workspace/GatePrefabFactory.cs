@@ -158,7 +158,7 @@ namespace CompuLogic.Workspace
 			public string Orientation { get; set; }
 			public bool Big { get; set; }
 			public Vector2 OrientationV => new Vector2(
-				Orientation == "W" ? 1 : (Orientation == "E" ? -1 : 0),
+				Orientation == "W" ? -1 : (Orientation == "E" ? 1 : 0),
 				Orientation == "N" ? 1 : (Orientation == "S" ? -1 : 0)
 				);
 			

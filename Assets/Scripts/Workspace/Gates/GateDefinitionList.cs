@@ -331,7 +331,7 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class MuxGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S", "D₀", "D₁" };
+		public override string[] Inputs { get; } = new string[] { "E", "S", "D0", "D1" };
 		public override string[] Outputs { get; } = new string[] { "Y" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
@@ -350,7 +350,7 @@ namespace CompuLogic.Workspace.Gates
 	internal class DemuxGate : StatelessGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "E", "S", "D" };
-		public override string[] Outputs { get; } = new string[] { "Y₀", "Y₁" };
+		public override string[] Outputs { get; } = new string[] { "Y0", "Y1" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
@@ -367,7 +367,7 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class Mux2bGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S₀", "S₁", "D₀", "D₁", "D₂", "D₃" };
+		public override string[] Inputs { get; } = new string[] { "E", "S0", "S1", "D0", "D1", "D2", "D3" };
 		public override string[] Outputs { get; } = new string[] { "Y" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
@@ -393,8 +393,8 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class Demux2bGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S₀", "S₁", "D" };
-		public override string[] Outputs { get; } = new string[] { "Y₀", "Y₁", "Y₂", "Y₃" };
+		public override string[] Inputs { get; } = new string[] { "E", "S0", "S1", "D" };
+		public override string[] Outputs { get; } = new string[] { "Y0", "Y1", "Y2", "Y3" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
@@ -414,8 +414,8 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class Enc2b4bGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "D₀", "D₁" };
-		public override string[] Outputs { get; } = new string[] { "Y₀", "Y₁", "Y₂", "Y₃" };
+		public override string[] Inputs { get; } = new string[] { "D0", "D1" };
+		public override string[] Outputs { get; } = new string[] { "Y0", "Y1", "Y2", "Y3" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
@@ -433,8 +433,8 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class Dec4b2bGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "D₀", "D₁", "D₂", "D₃"};
-		public override string[] Outputs { get; } = new string[] { "Y₀", "Y₁" };
+		public override string[] Inputs { get; } = new string[] { "D0", "D1", "D2", "D3"};
+		public override string[] Outputs { get; } = new string[] { "Y0", "Y1" };
 		
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
@@ -484,7 +484,7 @@ namespace CompuLogic.Workspace.Gates
 	internal class SIPO4bGate : StatefulGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "CLK", "D" };
-		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁", "Q₂", "Q₃" };
+		public override string[] Outputs { get; } = new string[] { "Q0", "Q1", "Q2", "Q3" };
 
 		private bool _q0;
 		private bool _q1;
@@ -510,8 +510,8 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class PIPO4bGate : StatefulGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "CLK", "D₀", "D₁", "D₂", "D₃"	};
-		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁", "Q₂", "Q₃" };
+		public override string[] Inputs { get; } = new string[] { "CLK", "D0", "D1", "D2", "D3"	};
+		public override string[] Outputs { get; } = new string[] { "Q0", "Q1", "Q2", "Q3" };
 
 		private bool _q0;
 		private bool _q1;
@@ -545,7 +545,7 @@ namespace CompuLogic.Workspace.Gates
 	internal class Counter2bGate : StatefulGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "CLK", "RST" };
-		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁" };
+		public override string[] Outputs { get; } = new string[] { "Q0", "Q1" };
 
 		private bool _q0;
 		private bool _q1;
@@ -576,7 +576,7 @@ namespace CompuLogic.Workspace.Gates
 	internal class Counter4bGate : StatefulGateDefinition
 	{
 		public override string[] Inputs { get; } = new string[] { "CLK", "RST" };
-		public override string[] Outputs { get; } = new string[] { "Q₀", "Q₁", "Q₂", "Q₃" };
+		public override string[] Outputs { get; } = new string[] { "Q0", "Q1", "Q2", "Q3" };
 
 		private bool _q0;
 		private bool _q1;
@@ -599,8 +599,8 @@ namespace CompuLogic.Workspace.Gates
 				}
 				else
 				{
-					_q3 = (_q3 || _q2 && _q1 && _q0) && (!_q3 && !_q2 && !_q1 && !_q0);
-					_q2 = (_q2 || _q1 && _q0) && (!_q2 && !_q1 && !_q0);
+					_q3 = (_q3 || _q2 && _q1 && _q0) && !(_q3 && _q2 && _q1 && _q0);
+					_q2 = (_q2 || _q1 && _q0) && !(_q2 && _q1 && _q0);
 					_q1 = _q0 ^ _q1;
 					_q0 = !_q0;
 				}

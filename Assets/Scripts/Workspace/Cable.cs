@@ -137,14 +137,14 @@ namespace CompuLogic.Workspace
 				else
 				{
 					var startOr = StartAnchor.Orientation;
-					var endOr = StartAnchor.Orientation;
+					var endOr = EndAnchor.Orientation;
 
 					_line.positionCount = 4;
 					_line.SetPosition(0, startPos);
 
-					if (Mathf.Abs(startOr.x) > 0)
+					if (Mathf.Abs(startOr.x) > Mathf.Epsilon)
 					{
-						if (Mathf.Abs(endOr.x) > 0)
+						if (Mathf.Abs(endOr.x) > Mathf.Epsilon)
 						{
 							var middle = (startPos.x + endPos.x) / 2;
 							_line.SetPosition(1, new Vector3(middle, startPos.y, startPos.z));
@@ -152,13 +152,13 @@ namespace CompuLogic.Workspace
 						}
 						else
 						{
-							_line.SetPosition(1, new Vector3(startPos.x, endPos.y, startPos.z));
-							_line.SetPosition(2, new Vector3(startPos.x, endPos.y, startPos.z));
+							_line.SetPosition(1, new Vector3(endPos.x, startPos.y, startPos.z));
+							_line.SetPosition(2, new Vector3(endPos.x, startPos.y, startPos.z));
 						}
 					}
 					else
 					{
-						if (Mathf.Abs(endOr.x) > 0)
+						if (Mathf.Abs(endOr.x) > Mathf.Epsilon)
 						{
 							var middle = (startPos.y + endPos.y) / 2;
 							_line.SetPosition(1, new Vector3(startPos.x, middle, startPos.z));
@@ -166,8 +166,8 @@ namespace CompuLogic.Workspace
 						}
 						else
 						{
-							_line.SetPosition(1, new Vector3(endPos.x, startPos.y, startPos.z));
-							_line.SetPosition(2, new Vector3(endPos.x, startPos.y, startPos.z));
+							_line.SetPosition(1, new Vector3(startPos.x, endPos.y, startPos.z));
+							_line.SetPosition(2, new Vector3(startPos.x, endPos.y, startPos.z));
 						}
 					}
 

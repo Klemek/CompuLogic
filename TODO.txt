@@ -1,6 +1,6 @@
 TODO
--(1) finish gate book
 -(1) mux/demux svg
+-(1) show current gate name when moving
 -(1) change fonts
 -(3) cable overlap (same/diff circuit)
 -(5) cable management

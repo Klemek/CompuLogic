@@ -20,15 +20,25 @@ namespace CompuLogic
 
 		#region Private Properties
 
+		private bool _activate;
+
 		#endregion
 
 		#region Unity Methods
 
+		private void Start()
+		{
+			_activate = GetComponent<TextMeshPro>().text.Contains("\x305");
+		}
+
 		private void FixedUpdate()
 		{
-			var subText = GetComponentInChildren<TMP_SubMesh>();
-			if(subText != null && Mathf.Abs(subText.transform.localPosition.magnitude) < Mathf.Epsilon)
-				subText.transform.localPosition = SubTextOffset;
+			if (_activate)
+			{
+				var subText = GetComponentInChildren<TMP_SubMesh>();
+				if(subText != null && Mathf.Abs(subText.transform.localPosition.magnitude) < Mathf.Epsilon)
+					subText.transform.localPosition = SubTextOffset;
+			}
 		}
 
 		#endregion
