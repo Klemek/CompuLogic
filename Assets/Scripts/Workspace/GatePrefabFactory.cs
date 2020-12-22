@@ -66,12 +66,15 @@ namespace CompuLogic.Workspace
 			gate.GateType = (GateType)key;
 
 			gate.UIName = string.IsNullOrEmpty(item.Name) ? gate.GateType.ToString() : item.Name;
-			
+
+			var showAnchorNames = false;
+
 			if (string.IsNullOrEmpty(item.Skin))
 			{
 				gate.Sprite.Renderer.sprite = _defaultSprite;
 				gate.Sprite.Renderer.drawMode = SpriteDrawMode.Sliced;
 				gate.Sprite.Renderer.size = new Vector2(item.Width, item.Height);
+				showAnchorNames = true;
 			}
 			else
 			{
@@ -87,6 +90,7 @@ namespace CompuLogic.Workspace
 					var anchor = Instantiate(inputAnchor.Big ? _bigAnchorPrefab : _anchorPrefab);
 					anchor.transform.parent = prefab.transform;
 					inputAnchor.ConfigAnchor(anchor);
+					anchor.ShowName = showAnchorNames;
 					anchor.IsInput = true;
 				}
 			}
@@ -98,6 +102,7 @@ namespace CompuLogic.Workspace
 					var anchor = Instantiate(outputAnchor.Big ? _bigAnchorPrefab : _anchorPrefab);
 					anchor.transform.parent = prefab.transform;
 					outputAnchor.ConfigAnchor(anchor);
+					anchor.ShowName = showAnchorNames;
 				}
 			}
 

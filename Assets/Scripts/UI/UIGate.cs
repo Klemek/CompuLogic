@@ -18,7 +18,7 @@ namespace CompuLogic.UI
 			get 
 			{
 				if(_maxSize == null)
-					_maxSize = GameManager.Instance.GateSprites.Select(s => Math.Max(s.rect.width, s.rect.height)).Max();
+					_maxSize = GameManager.Instance.GateSprites.Select(s => Mathf.Max(s.rect.width, s.rect.height)).Max();
 				return _maxSize.Value;
 			} 
 		}
@@ -38,7 +38,7 @@ namespace CompuLogic.UI
 			{
 				var sprite = value.GetComponentInChildren<SpriteRenderer>().sprite;
 				Image.sprite = sprite;
-				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * Math.Max(sprite.rect.width, sprite.rect.height) / MaxSize);
+				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * Mathf.Max(sprite.rect.width, sprite.rect.height) / MaxSize);
 				gameObject.name = "UI_" + value.GateType.ToString();
 				Text.text = value.UIName;
 			}

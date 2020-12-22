@@ -58,5 +58,32 @@ namespace CompuLogic
 		{
 			return new Vector3(Mathf.Round(v.x), Mathf.Round(v.y), Mathf.Round(v.z));
 		}
+
+		public static void SetSortingLayerRecursive(this UnityEngine.Component obj, string sortingLayer)
+		{
+			if(obj.TryGetComponent<SpriteRenderer>(out var renderer))
+			{
+				renderer.SetSortingLayerRecursive(sortingLayer);
+			}
+			else
+			{
+				foreach (var subrenderer in obj.GetComponentsInChildren<SpriteRenderer>())
+				{
+					subrenderer.SetSortingLayerRecursive(sortingLayer);
+				}
+			}
+			
+		}
+
+		public static void SetSortingLayerRecursive(this SpriteRenderer renderer, string sortingLayer)
+		{
+			foreach (var subrenderer in renderer.GetComponentsInChildren<SpriteRenderer>())
+			{
+				if(subrenderer != renderer)
+				{
+					subrenderer.SetSortingLayerRecursive(sortingLayer);
+				}
+			}
+		}
 	}
 }

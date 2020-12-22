@@ -95,30 +95,72 @@ list:
   300:
     name: SR Latch
     width: 5
-    height: 6
+    height: 5
     input:
       - S 0.5 1.5 W
-      - R 0.5 4.5 W
+      - R 0.5 3.5 W
     output:
-      - Q 4.5 1.5 W
-      - Q̅ 4.5 4.5 W
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 3.5 E
   310:
     name: JK Latch
     width: 5
-    height: 6
+    height: 5
     input:
       - J 0.5 1.5 W
-      - K 0.5 4.5 W
+      - K 0.5 3.5 W
     output:
-      - Q 4.5 1.5 W
-      - Q̅ 4.5 4.5 W
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 3.5 E
   320:
     name: D Latch
     width: 5
-    height: 6
+    height: 5
     input:
       - D 0.5 1.5 W
-      - E 0.5 4.5 W
+      - E 0.5 3.5 W
     output:
-      - Q 4.5 1.5 W
-      - Q̅ 4.5 4.5 W
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 3.5 E
+  400:
+    name: SR Flip-Flop
+    width: 5
+    height: 7
+    input:
+      - S 0.5 1.5 W
+      - R 0.5 3.5 W
+      - CLK 0.5 5.5 W
+    output:
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 5.5 E
+  410:
+    name: JK Flip-Flop
+    width: 5
+    height: 7
+    input:
+      - J 0.5 1.5 W
+      - K 0.5 3.5 W
+      - CLK 0.5 5.5 W
+    output:
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 5.5 E
+  420:
+    name: D Flip-Flop
+    width: 5
+    height: 7
+    input:
+      - D 0.5 1.5 W
+      - CLK 0.5 5.5 W
+    output:
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 5.5 E
+  430:
+    name: T Flip-Flop
+    width: 5
+    height: 7
+    input:
+      - T 0.5 1.5 W
+      - CLK 0.5 5.5 W
+    output:
+      - Q 4.5 1.5 E
+      - Q̅ 4.5 5.5 E

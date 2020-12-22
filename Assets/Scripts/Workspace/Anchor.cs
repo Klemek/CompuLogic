@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace CompuLogic.Workspace
@@ -13,6 +14,8 @@ namespace CompuLogic.Workspace
 		public bool IsInput;
 		public float ScaleIncrease;
 		public Vector2 Orientation;
+		public float TextSpace;
+		
 
 		#endregion
 
@@ -24,25 +27,60 @@ namespace CompuLogic.Workspace
 		{
 			get
 			{
-			 if (IsInput)
-				return Cables.Count > 0 && Cables.First().Activated;
-			 else
-				return _activated;
+				if (IsInput)
+					return Cables.Count > 0 && Cables.First().Activated;
+				else
+					return _activated;
 			}
 			set
 			{
-			 if (!IsInput)
-				_activated = value;
+				if (!IsInput)
+					_activated = value;
 			}
 		}
 		public bool Hovering { get; internal set; }
+		public bool ShowName
+		{
+			set
+			{
+				Text.gameObject.SetActive(value);
+				if (value)
+				{
+					Text.text = Name;
+					var rect = Text.GetComponent<RectTransform>();
+					rect.localRotation = (Mathf.Abs(Orientation.y) > Mathf.Epsilon) ? Quaternion.AngleAxis(90f, Vector3.forward) : Quaternion.identity;
+					rect.localPosition = new Vector3(Orientation.x, Orientation.y, 0f) * TextSpace;
+					Text.alignment = (Orientation.x < -Mathf.Epsilon || Orientation.y < -Mathf.Epsilon) ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.MidlineLeft;
+					
+				}
+			}
+		}
+		public TextMeshPro Text
+		{
+			get
+			{
+				if (_text == null)
+					_text = GetComponentInChildren<TextMeshPro>(true);
+				return _text;
+			}
+		}
+		public SpriteRenderer Sprite
+		{
+			get
+			{
+				if (_sprite == null)
+					_sprite = GetComponentInChildren<SpriteRenderer>();
+				return _sprite;
+			}
+		}
 
 		#endregion
 
 		#region Private Properties
 
-		private Vector3 _scale;
 		private SpriteRenderer _sprite;
+		private TextMeshPro _text;
+		private Vector3 _scale;
 		private bool _activated;
 		private bool? _lastActivated;
 
@@ -55,8 +93,7 @@ namespace CompuLogic.Workspace
 		{
 			Gate = GetComponentInParent<Gate>();
 			Utils.RandomName($"{Gate.GateType}_{Name}", gameObject);
-			_scale = transform.localScale;
-			_sprite = GetComponent<SpriteRenderer>();
+			_scale = Sprite.transform.localScale;
 			Cables = new List<Cable>();
 			Orientation = Orientation.normalized;
 		}
@@ -69,16 +106,16 @@ namespace CompuLogic.Workspace
 
 		private void OnMouseEnter()
 		{
-			transform.localScale = _scale * ScaleIncrease;
+			Sprite.transform.localScale = _scale * ScaleIncrease;
 			GameManager.Instance.CurrentAnchor = this;
 			Hovering = true;
 		}
 
 		private void OnMouseExit()
 		{
-			transform.localScale = _scale;
+			Sprite.transform.localScale = _scale;
 			if (Equals(GameManager.Instance.CurrentAnchor))
-			 GameManager.Instance.CurrentAnchor = null;
+				GameManager.Instance.CurrentAnchor = null;
 			Hovering = false;
 		}
 
@@ -88,7 +125,7 @@ namespace CompuLogic.Workspace
 			{
 				foreach(var cable in Cables)
 				{
-				 Destroy(cable.gameObject);
+					Destroy(cable.gameObject);
 				}
 			}
 			
@@ -114,8 +151,8 @@ namespace CompuLogic.Workspace
 		{
 			if (_lastActivated == null || _lastActivated != Activated)
 			{
-			 _sprite.color = Activated ? GameManager.Instance.ActivatedColor : GameManager.Instance.DeadColor;
-			 _lastActivated = Activated;
+				Sprite.color = Activated ? GameManager.Instance.ActivatedColor : GameManager.Instance.DeadColor;
+				_lastActivated = Activated;
 			}
 		}
 

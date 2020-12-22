@@ -81,10 +81,7 @@ namespace CompuLogic
 			_currentGate = gate;
 			_currentGateDelta = MousePos - _currentGate.transform.position;
 			_currentGateInitialPos = created ? (Vector3?)null : _currentGate.transform.position;
-			foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
-			{
-				renderer.sortingLayerName = "moving";
-			}
+			_currentGate.SetSortingLayerRecursive("moving");
 		}
 
 		public void RequestDelete()
@@ -203,10 +200,7 @@ namespace CompuLogic
 				}
 				else
 				{
-					foreach (var renderer in _currentGate.GetComponentsInChildren<SpriteRenderer>())
-					{
-						renderer.sortingLayerName = "default";
-					}
+					_currentGate.SetSortingLayerRecursive("default");
 					_currentGate.transform.position = _currentGate.transform.position.Round();
 					var currentBox = _currentGate.Box;
 					if (FindObjectsOfType<Gate>()

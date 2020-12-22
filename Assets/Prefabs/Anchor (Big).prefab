@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anchor (Big)
       objectReference: {fileID: 0}
+    - target: {fileID: 7299001212308582520, guid: d2ad1e1266d8af64ca87541a40be7e9f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8599692958760628507, guid: d2ad1e1266d8af64ca87541a40be7e9f, type: 3}
       propertyPath: m_RootOrder
       value: 0
