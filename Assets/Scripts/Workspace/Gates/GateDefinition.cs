@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UntitledLogicGame.Workspace.Gates
+namespace CompuLogic.Workspace.Gates
 {
 	public abstract class GateDefinition
 	{

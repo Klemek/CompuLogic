@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UntitledLogicGame.Workspace.Gates
+namespace CompuLogic.Workspace.Gates
 {
 	#region 000 - Technical
 

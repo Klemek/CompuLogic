@@ -6,9 +6,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UntitledLogicGame.Workspace;
+using CompuLogic.Workspace;
 
-namespace UntitledLogicGame.UI
+namespace CompuLogic.UI
 {
 	public class UIGate : UIToolbarButton
 	{
@@ -18,11 +18,12 @@ namespace UntitledLogicGame.UI
 			get 
 			{
 				if(_maxSize == null)
-					_maxSize = GameManager.Instance.GateSprites.Select(s => s.rect.width).Max();
+					_maxSize = GameManager.Instance.GateSprites.Select(s => Math.Max(s.rect.width, s.rect.height)).Max();
 				return _maxSize.Value;
 			} 
 		}
 		private float? _maxSize;
+
 		#endregion
 
 		#region Unity Properties
@@ -37,7 +38,7 @@ namespace UntitledLogicGame.UI
 			{
 				var sprite = value.GetComponentInChildren<SpriteRenderer>().sprite;
 				Image.sprite = sprite;
-				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * sprite.rect.width / MaxSize);
+				Image.GetComponent<RectTransform>().sizeDelta = new Vector2(100f, 100 * Math.Max(sprite.rect.width, sprite.rect.height) / MaxSize);
 				gameObject.name = "UI_" + value.GateType.ToString();
 				Text.text = value.UIName;
 			}

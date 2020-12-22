@@ -1,10 +1,10 @@
 TODO
+-(1) finish gate book
+-(1) mux/demux svg
+-(1) change fonts
 -(2) named anchors (dezoom hide ?)
 -(3) clocks (1Hz, 5Hz, 10Hz, etc.)
--(3) generic rect gates
--(3) state gates (automatic prefab ?)
 -(3) cable overlap (same/diff circuit)
 -(5) cable management
 -(5) buses
--(?) find a name
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UntitledLogicGame
+namespace CompuLogic
 {
 	public class CameraManager : MonoBehaviour
 	{

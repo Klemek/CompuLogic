@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
-using UntitledLogicGame.Workspace;
-using UntitledLogicGame.Workspace.Gates;
+using CompuLogic.Workspace;
+using CompuLogic.Workspace.Gates;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace UntitledLogicGame.Workspace
+namespace CompuLogic.Workspace
 {
 	public class GatePrefabFactory : MonoBehaviour
 	{

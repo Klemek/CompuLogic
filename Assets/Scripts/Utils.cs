@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace UntitledLogicGame
+namespace CompuLogic
 {
 	public static class Utils
 	{

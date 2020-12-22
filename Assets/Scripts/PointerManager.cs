@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UntitledLogicGame.Workspace;
+using CompuLogic.Workspace;
 
-namespace UntitledLogicGame
+namespace CompuLogic
 {
 	public class PointerManager : MonoBehaviour
 	{

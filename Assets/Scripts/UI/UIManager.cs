@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UntitledLogicGame.Workspace.Gates;
+using CompuLogic.Workspace.Gates;
 
-namespace UntitledLogicGame.UI
+namespace CompuLogic.UI
 {
 	public class UIManager : MonoBehaviour
 	{

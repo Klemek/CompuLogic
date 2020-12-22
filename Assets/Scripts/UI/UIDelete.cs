@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UntitledLogicGame.UI
+namespace CompuLogic.UI
 {
 	public class UIDelete : UIToolbarButton, IPointerEnterHandler, IPointerExitHandler
 	{

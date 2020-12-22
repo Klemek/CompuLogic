@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UntitledLogicGame.Workspace.Gates;
+using CompuLogic.Workspace.Gates;
 
-namespace UntitledLogicGame.Workspace
+namespace CompuLogic.Workspace
 {
 	public class GateSprite : MonoBehaviour
 	{

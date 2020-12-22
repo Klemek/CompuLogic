@@ -1,4 +1,4 @@
-﻿namespace UntitledLogicGame.Workspace.Gates
+﻿namespace CompuLogic.Workspace.Gates
 {
 	public enum GateType
 	{
