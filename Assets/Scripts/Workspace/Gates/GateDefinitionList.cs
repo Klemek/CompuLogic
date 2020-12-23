@@ -331,17 +331,17 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class MuxGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S", "D0", "D1" };
+		public override string[] Inputs { get; } = new string[] { "E̅", "S", "D0", "D1" };
 		public override string[] Outputs { get; } = new string[] { "Y" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
-			var e = input[0];
+			var ne = input[0];
 			var s = input[1];
 			var d0 = input[2];
 			var d1 = input[3];
 
-			var y = e && (!s && d0 || s && d1);
+			var y = !ne && (!s && d0 || s && d1);
 
 			return new OutputState(y);
 		};
@@ -349,17 +349,17 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class DemuxGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S", "D" };
+		public override string[] Inputs { get; } = new string[] { "E̅", "S", "D" };
 		public override string[] Outputs { get; } = new string[] { "Y0", "Y1" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
-			var e = input[0];
+			var ne = input[0];
 			var s = input[1];
 			var d = input[2];
 
-			var y0 = e && !s && d;
-			var y1 = e && s && d;
+			var y0 = !ne && !s && d;
+			var y1 = !ne && s && d;
 
 			return new OutputState(y0, y1);
 		};
@@ -367,12 +367,12 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class Mux2bGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S0", "S1", "D0", "D1", "D2", "D3" };
+		public override string[] Inputs { get; } = new string[] { "E̅", "S0", "S1", "D0", "D1", "D2", "D3" };
 		public override string[] Outputs { get; } = new string[] { "Y" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
-			var e = input[0];
+			var ne = input[0];
 			var s0 = input[1];
 			var s1 = input[2];
 			var d0 = input[3];
@@ -380,7 +380,7 @@ namespace CompuLogic.Workspace.Gates
 			var d2 = input[5];
 			var d3 = input[6];
 
-			var y = e && (
+			var y = ne && (
 				!s0 && !s1 && d0 ||
 				s0 && !s1 && d1 ||
 				!s0 && s1 && d2 ||
@@ -393,20 +393,20 @@ namespace CompuLogic.Workspace.Gates
 
 	internal class Demux2bGate : StatelessGateDefinition
 	{
-		public override string[] Inputs { get; } = new string[] { "E", "S0", "S1", "D" };
+		public override string[] Inputs { get; } = new string[] { "E̅", "S0", "S1", "D" };
 		public override string[] Outputs { get; } = new string[] { "Y0", "Y1", "Y2", "Y3" };
 
 		internal override Func<InputState, OutputState> Function => (input) =>
 		{
-			var e = input[0];
+			var ne = input[0];
 			var s0 = input[1];
 			var s1 = input[2];
 			var d = input[3];
 
-			var y0 = e && !s0 && !s1 && d;
-			var y1 = e && s0 && !s1 && d;
-			var y2 = e && !s0 && s1 && d;
-			var y3 = e && s0 && s1 && d;
+			var y0 = !ne && !s0 && !s1 && d;
+			var y1 = !ne && s0 && !s1 && d;
+			var y2 = !ne && !s0 && s1 && d;
+			var y3 = !ne && s0 && s1 && d;
 
 			return new OutputState(y0, y1, y2, y3);
 		};

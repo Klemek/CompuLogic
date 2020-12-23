@@ -68,7 +68,7 @@ namespace CompuLogic.Workspace
 
 			gate.UIName = string.IsNullOrEmpty(item.Name) ? gate.GateType.ToString() : item.Name;
 
-			var showAnchorNames = false;
+			var showAnchorNames = item.ShowNames;
 
 			if (string.IsNullOrEmpty(item.Skin))
 			{
@@ -91,7 +91,7 @@ namespace CompuLogic.Workspace
 					var anchor = Instantiate(inputAnchor.Big ? _bigAnchorPrefab : _anchorPrefab);
 					anchor.transform.parent = prefab.transform;
 					inputAnchor.ConfigAnchor(anchor);
-					anchor.ShowName = showAnchorNames;
+					anchor.ShowName = showAnchorNames || inputAnchor.ShowName;
 					anchor.IsInput = true;
 				}
 			}
@@ -103,7 +103,7 @@ namespace CompuLogic.Workspace
 					var anchor = Instantiate(outputAnchor.Big ? _bigAnchorPrefab : _anchorPrefab);
 					anchor.transform.parent = prefab.transform;
 					outputAnchor.ConfigAnchor(anchor);
-					anchor.ShowName = showAnchorNames;
+					anchor.ShowName = showAnchorNames || outputAnchor.ShowName;
 				}
 			}
 
@@ -143,6 +143,7 @@ namespace CompuLogic.Workspace
 			public int Width { get; set; }
 			public int Height { get; set; }
 			public string Class { get; set; }
+			public bool ShowNames { get; set; }
 			public List<string> Input { get; set; }
 			public List<string> Output { get; set; }
 			public List<GateBookItemAnchor> InputAnchors => Input.Select(i => i.Split(new char[0])).Select(GateBookItemAnchor.Get).ToList();
@@ -157,6 +158,7 @@ namespace CompuLogic.Workspace
 			public float Y { get; set; }
 			public string Orientation { get; set; }
 			public bool Big { get; set; }
+			public bool ShowName { get; set; }
 			public Vector2 OrientationV => new Vector2(
 				Orientation == "W" ? -1 : (Orientation == "E" ? 1 : 0),
 				Orientation == "N" ? 1 : (Orientation == "S" ? -1 : 0)
@@ -170,7 +172,8 @@ namespace CompuLogic.Workspace
 					X = float.Parse(i[1], CultureInfo.InvariantCulture.NumberFormat),
 					Y = float.Parse(i[2], CultureInfo.InvariantCulture.NumberFormat),
 					Orientation = i[3],
-					Big = i.Length > 4 && i[4].Equals("big"),
+					Big = i.Contains("big"),
+					ShowName = i.Contains("named")
 				};
 			}
 

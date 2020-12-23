@@ -1,8 +1,13 @@
 TODO
--(1) mux/demux svg
 -(1) show current gate name when moving
 -(1) change fonts
+-(1) light gray name on default gates
 -(3) cable overlap (same/diff circuit)
 -(5) cable management
--(5) buses
+-(?) anchor names tooltip
+-(?) buses ?
+-(?) Main Menu
+-(?) Pause Menu
+-(?) Tools
+-(?) Levels
 

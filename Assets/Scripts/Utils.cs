@@ -61,13 +61,13 @@ namespace CompuLogic
 
 		public static void SetSortingLayerRecursive(this UnityEngine.Component obj, string sortingLayer)
 		{
-			if(obj.TryGetComponent<SpriteRenderer>(out var renderer))
+			if(obj.TryGetComponent<Renderer>(out var renderer))
 			{
 				renderer.SetSortingLayerRecursive(sortingLayer);
 			}
 			else
 			{
-				foreach (var subrenderer in obj.GetComponentsInChildren<SpriteRenderer>())
+				foreach (var subrenderer in obj.GetComponentsInChildren<Renderer>())
 				{
 					subrenderer.SetSortingLayerRecursive(sortingLayer);
 				}
@@ -75,9 +75,10 @@ namespace CompuLogic
 			
 		}
 
-		public static void SetSortingLayerRecursive(this SpriteRenderer renderer, string sortingLayer)
+		public static void SetSortingLayerRecursive(this Renderer renderer, string sortingLayer)
 		{
-			foreach (var subrenderer in renderer.GetComponentsInChildren<SpriteRenderer>())
+			renderer.sortingLayerName = sortingLayer;
+			foreach (var subrenderer in renderer.GetComponentsInChildren<Renderer>())
 			{
 				if(subrenderer != renderer)
 				{

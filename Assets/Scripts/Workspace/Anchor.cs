@@ -48,7 +48,7 @@ namespace CompuLogic.Workspace
 				{
 					Text.text = Name;
 					var rect = Text.GetComponent<RectTransform>();
-					var rotate = (Mathf.Abs(Orientation.y) > Mathf.Epsilon && Name.Length > 1);
+					var rotate = Mathf.Abs(Orientation.y) > Mathf.Epsilon && Name.Length > 1 && !Name.Contains("\x305");
 					rect.localRotation = rotate ? Quaternion.AngleAxis(90f, Vector3.forward) : Quaternion.identity;
 					rect.localPosition = new Vector3(Orientation.x, Orientation.y, 0f) * -TextSpace;
 					if (!rotate && Mathf.Abs(Orientation.y) > Mathf.Epsilon)
